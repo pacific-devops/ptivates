@@ -1,0 +1,718 @@
+{
+    "repositories": {
+        "dret-common-workflow-shared": {
+            "domain": "runops"
+        },
+        "mcd_decom": {
+            "domain": "platform"
+        },
+        "dret-ootb-exporters": {
+            "domain": "runops"
+        },
+        "dret-ops-scripts": {
+            "domain": "runops"
+        },
+        "dret-redshift-custom-exporter": {
+            "domain": "runops"
+        },
+        "dret-zcc": {
+            "domain": "platform"
+        },
+        "dret-batch-abac-exporter": {
+            "domain": "platform"
+        },
+        "dret-generic-metrics-exporter": {
+            "domain": "platform"
+        },
+        "dret-ccp-metrics-exporter": {
+            "domain": "platform"
+        },
+        "dret-sdap-metrics-exporter": {
+            "domain": "platform"
+        },
+        "dret-star-metrics-exporter": {
+            "domain": "platform"
+        },
+        "dret-mcdp-metrics-exporter": {
+            "domain": "runops"
+        },
+        "dret-item-vista-metrics-exporter": {
+            "domain": "runops"
+        },
+        "dret-talend-exporter": {
+            "domain": "runops"
+        },
+        "dret-grafana-dashboards-config": {
+            "domain": "runops"
+        },
+        "dret-daily-monitoring-automation": {
+            "domain": "runops"
+        },
+        "dret-moost-metrics-exporter": {
+            "domain": "runops"
+        },
+        "DOG": {
+            "domain": "runops"
+        },
+        "dret-talend-logging-utility": {
+            "domain": "runops"
+        },
+        "dret-yipit-metrics-exporter": {
+            "domain": "runops"
+        },
+        "dret-grafana-lightup-datasource": {
+            "domain": "runops"
+        },
+        "dret-nextgen-configs": {
+            "domain": "runops"
+        },
+        "dret-stld-metrics-exporter": {
+            "domain": "runops"
+        },
+        "dret-cw-metric-filter-lambda": {
+            "domain": "runops"
+        },
+        "dret-clickhouse-poc-config": {
+            "domain": "runops"
+        },
+        "dret-fluent-plugin-mongo": {
+            "domain": "runops"
+        },
+        "dret-mds-metrics-exporter": {
+            "domain": "runops"
+        },
+        "dret-python-logging-utility": {
+            "domain": "runops"
+        },
+        "mcdp-ddcm-integrations": {
+            "domain": "dcust"
+        },
+        "gdct-admin": {
+            "domain": "drest"
+        },
+        "gtimer": {
+            "domain": "drest"
+        },
+        "gdct2": {
+            "domain": "drest"
+        },
+        "runway": {
+            "domain": "runops"
+        },
+        "dret-f360-metrics-exporter": {
+            "domain": "runops"
+        },
+        "dret-lightup-databricks": {
+            "domain": "runops"
+        },
+        "dret-tech360-metrics-exporter": {
+            "domain": "runops"
+        },
+        "dret-ftp-metrics-exporter": {
+            "domain": "runops"
+        },
+        "DAAI-GDAP-GENAI-LAMBDA": {
+            "domain": "runops"
+        },
+        "DAAI-gdap-genai-poc-test": {
+            "domain": "runops"
+        },
+        "dops-github-migration": {
+            "domain": "runops"
+        },
+        "DEGT_store_FTP_RFM_skripte": {
+            "domain": "??"
+        },
+        "GMLP-SOP-MLOps": {
+            "domain": "platform"
+        },
+        "TALEND-GSCV": {
+            "domain": "dsale"
+        },
+        "jenkins-pipeline-common": {
+            "domain": "platform"
+        },
+        "TALEND-ITEM_VISTA": {
+            "domain": "dsale"
+        },
+        "TALEND-BRE_DATA": {
+            "domain": "drest"
+        },
+        "TALEND-GBL": {
+            "domain": "drest"
+        },
+        "TALEND-GBL_DASHBOARD": {
+            "domain": "drest"
+        },
+        "GDAP-MDSC": {
+            "domain": "dsale"
+        },
+        "GDAP-EMRCREATOR-INSTANCEFLEET": {
+            "domain": "platform"
+        },
+        "GDAP-FINANCE360": {
+            "domain": "??"
+        },
+        "GDAP-RunOps-Scripts": {
+            "domain": "runops"
+        },
+        "GDAP-DBA": {
+            "domain": "platform"
+        },
+        "GDAP-McFlow": {
+            "domain": "dcust"
+        },
+        "GDAP-CUSTOMER360": {
+            "domain": "dcust"
+        },
+        "dret-dmb-metrics-exporter": {
+            "domain": "runops"
+        },
+        "TALEND-MDAP": {
+            "domain": "??"
+        },
+        "TALEND-GDPR": {
+            "domain": "??"
+        },
+        "TALEND-DECISION_ENGINE": {
+            "domain": "platform"
+        },
+        "DATA-githubpolicy-automation": {
+            "domain": "runops"
+        },
+        "TALEND-REFERENCE": {
+            "domain": "??"
+        },
+        "GDAP-ITEM-VISTA": {
+            "domain": "dsale"
+        },
+        "dret-pa-metrics-exporter": {
+            "domain": "runops"
+        },
+        "GDAP-COLLIBRA": {
+            "domain": "??"
+        },
+        "GDAP-SUPPLYCHAIN": {
+            "domain": "dscrm"
+        },
+        "GDAP-McIngest-SC": {
+            "domain": "dscrm"
+        },
+        "TALEND-WEATHERSOURCE": {
+            "domain": "drest"
+        },
+        "dret-eb-json-logger": {
+            "domain": "runops"
+        },
+        "GDAP-Treasury": {
+            "domain": "??"
+        },
+        "TALEND-TREASURY": {
+            "domain": "??"
+        },
+        "bre-rde": {
+            "domain": "drest"
+        },
+        "rde-terraform-components": {
+            "domain": "drest"
+        },
+        "rde-tableau": {
+            "domain": "drest"
+        },
+        "rde-gdw-redshift-sql": {
+            "domain": "drest"
+        },
+        "TALEND-BRE": {
+            "domain": "drest"
+        },
+        "PACE": {
+            "domain": "drest"
+        },
+        "PROPEL": {
+            "domain": "drest"
+        },
+        "GDAP-EMRCREATOR": {
+            "domain": "platform"
+        },
+        "GROIP-CEI-CRCP": {
+            "domain": "drest"
+        },
+        "GBL": {
+            "domain": "drest"
+        },
+        "GDAP-DECOMPDASH": {
+            "domain": "dsale"
+        },
+        "GDAP-TECH360": {
+            "domain": "??"
+        },
+        "sandbox-stamey-evelyn": {
+            "domain": "??"
+        },
+        "dret-eb-next-eda": {
+            "domain": "runops"
+        },
+        "STAR LAMBDA LFS": {
+            "domain": "delete"
+        },
+        "CCP_E2E_Automation": {
+            "domain": "dcust"
+        },
+        "GDAP-CDP2E-AUTOMATION": {
+            "domain": "dcust"
+        },
+        "GDAP-CDP2E-AUTOMATIONDASHBOARD": {
+            "domain": "dcust"
+        },
+        "GDAP-CDP2E-AUTOMATIONDASHBOARD-API": {
+            "domain": "dcust"
+        },
+        "GDAP-CDP2E-CPPMCDDATAFLOW": {
+            "domain": "dcust"
+        },
+        "GDAP-CDP2E-CPPGRESSIONPACK": {
+            "domain": "dcust"
+        },
+        "GDAP-CDP2E-DCUSTAUTOMATION": {
+            "domain": "dcust"
+        },
+        "GDAP-CDP2E-EXPLAYERVALIDATION": {
+            "domain": "dcust"
+        },
+        "GDAP-CDP2E-GLOBALINOUTBOUNDASHBOARD": {
+            "domain": "dcust"
+        },
+        "GDAP-CDP2E-ODIS2GDRMTE": {
+            "domain": "dcust"
+        },
+        "GDAP-CDP2E-ODIS2GDRPSTG": {
+            "domain": "dcust"
+        },
+        "GDAP-CDP2E-ORDERAUTOMATION": {
+            "domain": "dcust"
+        },
+        "GDAP-CDP2E-SESSIONMC360FLOWAUTOMATION": {
+            "domain": "dcust"
+        },
+        "GDAP-CDP2E-STARFLOWAUTOMATION": {
+            "domain": "dcust"
+        },
+        "GDAP-CDP2E-TALENDBOMNOTAUTOMATION": {
+            "domain": "dcust"
+        },
+        "GDAP-CDP2E-GLOBALINBOUNDWEB": {
+            "domain": "dcust"
+        },
+        "TALEND-CCPA-REPORTS": {
+            "domain": "dsale"
+        },
+        "TALEND-NG3-IDA": {
+            "domain": "dcust"
+        },
+        "GDAP-CCI-AUTOMATIONS": {
+            "domain": "dcust"
+        },
+        "TALEND-GROIP": {
+            "domain": "drest"
+        },
+        "gdap-serumanalytics": {
+            "domain": "??"
+        },
+        "opentest-repo": {
+            "domain": "platform"
+        },
+        "GDAP-ITEMMASTER": {
+            "domain": "dscrm"
+        },
+        "GDAP-DSALE-D3POYPIT": {
+            "domain": "dsale"
+        },
+        "GMLP_test_ml": {
+            "domain": "drest"
+        },
+        "McInsights": {
+            "domain": "??"
+        },
+        "TALEND-STAR": {
+            "domain": "dsale"
+        },
+        "GBL_DB_Objects": {
+            "domain": "drest"
+        },
+        "DAAI-gdap-genai-gcp-poc2-cloudrun": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-poc3-v1-cloudfunction": {
+            "domain": "??"
+        },
+        "DAAI-ordering-frontend": {
+            "domain": "??"
+        },
+        "ingestion-realtime-dbloader": {
+            "domain": "platform"
+        },
+        "DREST-FS": {
+            "domain": "drest"
+        },
+        "GDAP-RESTAURANT-LABOR-EXTRACT": {
+            "domain": "drest"
+        },
+        "GROIP-CEI-CISSync": {
+            "domain": "drest"
+        },
+        "GDAP-GROIPMATRIX": {
+            "domain": "drest"
+        },
+        "ingestion-realtime": {
+            "domain": "platform"
+        },
+        "GDAP-DSALE-SSP": {
+            "domain": "dsale"
+        },
+        "semi-ingest": {
+            "domain": "dsale"
+        },
+        "GDAP-DSALE-EXTRACTS": {
+            "domain": "dsale"
+        },
+        "GDAP-DSALE-TICKETLESS-GAMING": {
+            "domain": "dsale"
+        },
+        "3ngtdta": {
+            "domain": "dsale"
+        },
+        "GDAP-STARR-NPD": {
+            "domain": "dsale"
+        },
+        "GDAP-STLD-HEURISTICS": {
+            "domain": "dsale"
+        },
+        "GDAP-DSALE-DMB": {
+            "domain": "dsale"
+        },
+        "GDAP-DSALE-E-NP": {
+            "domain": "dsale"
+        },
+        "TALEND-TDA": {
+            "domain": "dsale"
+        },
+        "TALEND-GLMA_GENERAL": {
+            "domain": "dsale"
+        },
+        "GDAP-Test": {
+            "domain": "platform"
+        },
+        "TALEND-GLMA_STATIC": {
+            "domain": "dsale"
+        },
+        "TALEND-GLMA_SPA": {
+            "domain": "dsale"
+        },
+        "TALEND-GFIN": {
+            "domain": "??"
+        },
+        "KPI_test": {
+            "domain": "??"
+        },
+        "TALEND-GLMA_HIERARCHY": {
+            "domain": "dsale"
+        },
+        "GMLP-SOP-MLOps-Test": {
+            "domain": "runops"
+        },
+        "TALEND-IDDF": {
+            "domain": "??"
+        },
+        "DAAI-GDAP-GENAI-UI": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-poc1-cloudfunction": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-poc1-dialogflow": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-authenticator": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-poc4-cloudfunction": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-poc1-embeddings": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-poc1-dialogflow-promotion": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-poc3-cloudrun-restapi": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-poc1-feedback-cloudfunction": {
+            "domain": "??"
+        },
+        "common-datalake-api": {
+            "domain": "platform"
+        },
+        "GLOBAL-NPS": {
+            "domain": "??"
+        },
+        "abac2.0-utils": {
+            "domain": "platform"
+        },
+        "abac-opentest-repo": {
+            "domain": "platform"
+        },
+        "common-datalake": {
+            "domain": "platform"
+        },
+        "TALEND-GLOBAL-NPS": {
+            "domain": "??"
+        },
+        "TALEND-FINANCIAL_PLANNING": {
+            "domain": "??"
+        },
+        "TALEND-WEBFFS_DATA_INTEGRATION": {
+            "domain": "??"
+        },
+        "TALEND-ARCIS_GDAP_DATA_INTEGRATION": {
+            "domain": "??"
+        },
+        "transfertest": {
+            "domain": "??"
+        },
+        "financial-planning-non-talend-dev": {
+            "domain": "??"
+        },
+        "mcd-databricks": {
+            "domain": "platform"
+        },
+        "DAAI-gdap-genai-gcp-poc3-v2-cloudfunction": {
+            "domain": "??"
+        },
+        "GMLP-SOP-Demo": {
+            "domain": "??"
+        },
+        "DAAI-GDAP-GENAI-SCP-POC": {
+            "domain": "??"
+        },
+        "GDAP-CANVAS": {
+            "domain": "dsale"
+        },
+        "ABAC2.0": {
+            "domain": "platform"
+        },
+        "abac-api": {
+            "domain": "platform"
+        },
+        "abac2.0": {
+            "domain": "platform"
+        },
+        "devops-pyspark": {
+            "domain": "platform"
+        },
+        "aws-power-tuner-ui": {
+            "domain": "platform"
+        },
+        "devops-datarang": {
+            "domain": "platform"
+        },
+        "common-datalake-api-stkl": {
+            "domain": "platform"
+        },
+        "talend-opentest": {
+            "domain": "platform"
+        },
+        "DAAI-gdap-genai-gcp-user-profile-handler-poc1": {
+            "domain": "??"
+        },
+        "devops-monitorng": {
+            "domain": "platform"
+        },
+        "devops-utils": {
+            "domain": "platform"
+        },
+        "sdap-opentest-testsuite": {
+            "domain": "platform"
+        },
+        "mc-insight-opentest-functionality-testsuite": {
+            "domain": "platform"
+        },
+        "GDAP-AWR": {
+            "domain": "drest"
+        },
+        "GDAP-SATL": {
+            "domain": "?? dsale ??"
+        },
+        "TALEND-BLUES_REPORTING": {
+            "domain": "dsale"
+        },
+        "ingestion-batch": {
+            "domain": "platform"
+        },
+        "mcd-dbricks-errorbudget": {
+            "domain": "runops"
+        },
+        "pricing": {
+            "domain": "??"
+        },
+        "sdap_repo": {
+            "domain": "??"
+        },
+        "sdap_snowflake_repo": {
+            "domain": "??"
+        },
+        "gdap-live": {
+            "domain": "platform"
+        },
+        "gdap-modules": {
+            "domain": "platform"
+        },
+        "mcdp-ddcm-integrations-devops-poc": {
+            "domain": "dcust"
+        },
+        "GDAP-INFRASTRUCTURE-BAU": {
+            "domain": "platform"
+        },
+        "t360-sonarqube": {
+            "domain": "??"
+        },
+        "doopr-repo-creator": {
+            "domain": "runops"
+        },
+        "TALEND-GLMA_OUTBOUND": {
+            "domain": "dsale"
+        },
+        "TALEND-PRICING_PORTAL": {
+            "domain": "?? dsale ??"
+        },
+        "TALEND-CDMM": {
+            "domain": "platform"
+        },
+        "mwaa-enterprise-scheduler": {
+            "domain": "platform"
+        },
+        "GDAP-CEDAR": {
+            "domain": "platform"
+        },
+        "GDAP-DAFFA": {
+            "domain": "??"
+        },
+        "TALEND-KPI_CUSTOMER360": {
+            "domain": "dcust"
+        },
+        "resco-brag-site": {
+            "domain": "??"
+        },
+        "STAR-LAMBDA": {
+            "domain": "dsale"
+        },
+        "Sample-repo": {
+            "domain": "?? delete??"
+        },
+        "daai-ai-platform": {
+            "domain": "??"
+        },
+        "Forecasting": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-poc1-datastore-document-ingestion": {
+            "domain": "??"
+        },
+        "Standard_MLOps_Directory": {
+            "domain": "runops"
+        },
+        "Test-GDAP-Treasury": {
+            "domain": "delete"
+        },
+        "DAAI-gdap-genai-gcp-poc1-restco-notebooks": {
+            "domain": "??"
+        },
+        "rpio-retlio-integrations": {
+            "domain": "platform"
+        },
+        "GMLP_DBRPLATFORM_MGMT": {
+            "domain": "??"
+        },
+        "GMLP-MLOps-Codebase": {
+            "domain": "??"
+        },
+        "dret-eb-utils": {
+            "domain": "runops"
+        },
+        "GDAP-Delivery": {
+            "domain": "dcust"
+        },
+        "dret-eb-docs": {
+            "domain": "runops"
+        },
+        "DAAI-gdap-genai-gcp-natural-language-query-view-prompt-agent": {
+            "domain": "runops"
+        },
+        "dops-ci-cd-actions-common": {
+            "domain": "dcust"
+        },
+        "GDAP-CDP2E-PROFILECREATION": {
+            "domain": "??"
+        },
+        "GMLP_DBRPLATFORM_POC": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-poc1-dialogflow-authentication": {
+            "domain": "??"
+        },
+        "dret-airflow-exporter": {
+            "domain": "runops"
+        },
+        "gdap-item-vista-qc-checks": {
+            "domain": "dsale"
+        },
+        "DAAI-gdap-genai-gcp-natural-language-query-filter-prompt-agent": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-natural-language-query-insight-graph-generation-agent": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-natural-language-query-data-retrieval-agent": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-natural-language-query-question-about-data-agent": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-natural-language-query-question-about-gcs-eb-load": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-natural-language-query-user-confirmation-agent": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-natural-language-query-validation-agent": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-natural-language-query-end-failure-store-logs": {
+            "domain": "??"
+        },
+        "DAAI-gdap-genai-gcp-natural-language-query-questions-suggestion-agent": {
+            "domain": "??"
+        },
+        "GMLP_DBRPLATFORM_ANALYSIS": {
+            "domain": "??"
+        },
+        "dret-eb-utils-java": {
+            "domain": "runops"
+        },
+        "GDAP-CDP2E-MONITORINGDASHBOARD": {
+            "domain": "dcust"
+        },
+        "dret-open-lineage": {
+            "domain": "runops"
+        },
+        "Run_OPS_Automation_Scripts": {
+            "domain": "runops"
+        },
+        "USCARE-ConnectEssentials": {
+            "domain": "drest"
+        },
+        "DAAI-gdap-genai-test-framework": {
+            "domain": "??"
+        }
+    }
+}
