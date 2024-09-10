@@ -1,0 +1,107 @@
+name: Upload to JFrog Generic Repository
+
+on:
+  workflow_call:
+    inputs:
+      project_key:
+        description: 'Please enter the project key'
+        type: string
+        required: true
+        default: 'gdap'
+      project_domain:
+        description: 'Please enter the project domain name'
+        required: true
+        type: string
+      team_name:
+        description: 'Please enter the team name'
+        required: true
+        type: string
+      artifacts_path:
+        description: Please provide the artifact path to upload , files or folders'
+        required: true
+        type: string
+      additional_artifact_path:
+        description: Path to additional artifacts like configs.'
+        required: false
+        type: string
+
+
+permissions:
+    id-token: write           # git permission for ODIC handshake with jfrog             
+    contents: write           # git permissions to repo pull/push
+    #statuses: write           # read/write to repo custom statuses and checks
+
+env:
+  PROJECT_KEY: ${{inputs.project_key}}
+  PROJECT_DOMAIN: ${{inputs.project_domain}}
+  TEAM_NAME: ${{inputs.team_name}}
+  ARTIFACT_PATH: ${{inputs.artifacts_path}}
+  ADDITIONAL_ARTIFACT_PATH: ${{inputs.additional_artifact_path}}
+jobs:
+  upload-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+    
+      - name: zip artifacts
+        run: |
+          if [ -z "${{env.ADDITIONAL_ARTIFACT_PATH}}" ]; then
+
+                zip -r 1.5.10-${{env.TEAM_NAME}}-${{ github.run_number }}.zip ${{env.ARTIFACT_PATH}}
+          else
+                zip -r 1.5.10-${{env.TEAM_NAME}}-${{ github.run_number }}.zip ${{env.ARTIFACT_PATH}} ${{env.ADDITIONAL_ARTIFACT_PATH}}
+          fi
+
+      - name: CHeck if user is part of a team
+        run: |
+         actor="${{ github.actor }}"  # The user to check
+         org="global-data-analytics"  # Your organization name
+         team_slug="vsta-github_admin"  # The team slug
+
+          response=$(curl -s -H "Authorization: token ${{ secrets.GH_PAT }}" \
+          https://api.github.com/orgs/$org/teams/$team_slug/members)
+          
+         is_member=$(echo $response | jq --arg actor "$actor" '.[] | select(.login == $actor)')
+
+          if [ -z "$is_member" ]; then
+          echo "$actor is not part of the $team_slug team, aborting."
+          exit 1
+         else
+         echo "$actor is part of the $team_slug team, proceeding."
+         echo "is_member=true" >> $GITHUB_ENV
+         fi
+      
+       # - name: Upload the artifacts
+
+      - name: Debug 
+        run: ls -la 
+
+         # Upload Artifact to JFrog
+      - name: Upload Artifact
+        if: env.is_member == 'true'
+        uses: mcd-actions/jfrog-upload-artifact@v1
+        with:
+          source: 1.5.10-${{env.TEAM_NAME}}-${{ github.run_number }}.zip
+          destination: ${{env.PROJECT_KEY}}-${{env.PROJECT_DOMAIN}}-generic-dev-local/${{env.TEAM_NAME}}/
+          dd-api-key: ${{ secrets.MCD_ACTIONS_DD_API_KEY }}
+
+
+      - name: Add Metadata to artifacts published
+        if: env.is_member == 'true'
+        run: |
+          jf rt set-props ${{env.PROJECT_KEY}}-${{env.PROJECT_DOMAIN}}-generic-dev-local/${{env.TEAM_NAME}}/1.5.10-${{env.TEAM_NAME}}-${{ github.run_number }}.zip \
+                 "Publisher=${{ github.actor }}; \
+                  Branch=${{ github.ref }}; \
+                  Commit_ID=${{ github.sha }}; \
+                  Workflow_Name=${{ github.workflow }}; \
+                  Trigger_Event_Name=${{ github.event_name }}"
+
+#         # Download artifact
+#       - uses: mcd-actions/jfrog-download-artifact@v1.0.0
+#         with:
+#          source: ${{env.ARTIFACT_TO_DOWNLOAD}}
+#          destination: './artifacts/'
+#          dd-api-key: ${{ secrets.MCD_ACTIONS_DD_API_KEY }}
+
+        
