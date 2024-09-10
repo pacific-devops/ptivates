@@ -1,0 +1,19 @@
+{
+    "domains": {
+        "runops": {
+            "generic": "gdap-runops-generic-dev-local",
+            "docker": "gdap-runops-docker-dev-local",
+            "maven": "gdap-runops-maven-dev-local"
+        },
+        "platform": {
+            "generic": "gdap-platform-generic-dev-local",
+            "docker": "gdap-platform-docker-dev-local",
+            "maven": "gdap-platform-maven-dev-local"
+        },
+        "dsale": {
+            "generic": "gdap-dsale-generic-dev-local",
+            "docker": "gdap-dsale-docker-dev-local",
+            "maven": "gdap-dsale-maven-dev-local"
+        }
+    }
+}

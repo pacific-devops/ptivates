@@ -1,0 +1,19 @@
+{
+    "repositories": {
+        "dret-common-workflow-shared": {
+            "domain": "runops"
+        },
+        "mcd_decom": {
+            "domain": "platform"
+        },
+        "dret-ootb-exporters": {
+            "domain": "runops"
+        },
+        "dret-ops-scripts": {
+            "domain": "runops"
+        },
+        "TALEND-ITEM_VISTA": {
+            "domain": "dsale"
+        }
+    }
+}
