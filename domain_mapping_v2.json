@@ -1,0 +1,10 @@
+{
+    "repositories": {
+        "dret-common-workflow-shared": {
+            "domain": "runops"
+        },
+        "mcd_decom": {
+            "domain": "platform"
+        }
+    }
+}
