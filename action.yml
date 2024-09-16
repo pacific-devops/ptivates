@@ -1,0 +1,56 @@
+name: "Download from S3 and Upload to JFrog"
+description: "Downloads all folders from an S3 bucket and uploads them to JFrog while preserving the folder structure."
+author: "Your Name"
+inputs:
+  aws-access-key-id:
+    description: "AWS Access Key ID"
+    required: true
+  aws-secret-access-key:
+    description: "AWS Secret Access Key"
+    required: true
+  aws-region:
+    description: "AWS Region"
+    required: true
+  s3-bucket:
+    description: "S3 Bucket Name"
+    required: true
+  jfrog-url:
+    description: "JFrog URL"
+    required: true
+  jfrog-repo:
+    description: "JFrog Repository Name"
+    required: true
+  oidc-provider-name:
+    description: "OIDC Provider Name"
+    required: false
+  oidc-audience:
+    description: "OIDC Audience"
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ inputs.aws-access-key-id }}
+        aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
+        aws-region: ${{ inputs.aws-region }}
+
+    - name: Download all folders from S3
+      run: |
+        mkdir -p s3-downloads
+        aws s3 sync s3://{{ inputs.s3-bucket }} s3-downloads/
+        ls s3-downloads/
+
+    - name: Setup JFrog CLI
+      uses: jfrog/setup-jfrog-cli@v2
+      with:
+        jfrog-url: ${{ inputs.jfrog-url }}
+        jfrog-deploy-repo: ${{ inputs.jfrog-repo }}
+        oidc-provider-name: ${{ inputs.oidc-provider-name }}
+        oidc-audience: ${{ inputs.oidc-audience }}
+
+    - name: Upload folders to JFrog
+      run: |
+        jf rt upload "s3-downloads/(*)" "{{ inputs.jfrog-repo }}/{1}/" --flat=false
