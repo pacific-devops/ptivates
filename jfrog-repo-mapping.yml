@@ -1,0 +1,16 @@
+# repo-mapping.yml
+
+allowed_repos:
+  - github_repo: "repo-1"
+    JFROG_ALLOWED_DESTINATION_REPOS:
+      - "jfrog-repo-1"
+      - "jfrog-repo-2"
+  
+  - github_repo: "repo-2"
+    JFROG_ALLOWED_DESTINATION_REPOS:
+      - "jfrog-repo-3"
+  
+  - github_repo: "repo-3"
+    JFROG_ALLOWED_DESTINATION_REPOS:
+      - "jfrog-repo-2"
+      - "jfrog-repo-4"
