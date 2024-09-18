@@ -26,18 +26,34 @@ jobs:
           GITHUB_REPO_NAME=$(basename "${{ github.repository }}")
           echo "repo_name=$GITHUB_REPO_NAME" >> $GITHUB_ENV
 
-      - name: Check JFrog Repository Access
-        run: |
-          GITHUB_REPO="${{ env.repo_name }}"
-          JFROG_REPO="your-jfrog-repo"
-          ALLOWED_REPO=$(yq eval '.allowed_repos[] | select(.github_repo == env.GITHUB_REPO) | .JFROG_ALLOWED_DESTINATION_REPOS[] | select(. == env.JFROG_REPO)' repo-mapping.yml)
+- name: Check JFrog Repository Access
+  run: |
+    # Set up environment variables
+    GITHUB_REPO="$repo_name"
+    JFROG_REPO="${{ inputs.JFROG_REPO }}"  # This should come from workflow inputs or env variables
 
-          if [ -z "$ALLOWED_REPO" ]; then
-            echo "Error: The GitHub repository $GITHUB_REPO is not allowed to deploy to JFrog repository $JFROG_REPO."
-            exit 1
-          else
-            echo "Success: The GitHub repository $GITHUB_REPO is allowed to deploy to JFrog repository $JFROG_REPO."
-          fi
+    # Export the environment variables so that they are available to yq
+    export GITHUB_REPO
+    export JFROG_REPO
+
+    # Check if the GitHub repository exists in the repo-mapping.yml file
+    REPO_EXISTS=$(yq eval '.repository_mapping[] | select(.github_repo == env.GITHUB_REPO)' ./called-workflow-repo/config/jfrog/repo-mapping.yml)
+
+    if [ -z "$REPO_EXISTS" ]; then
+      echo "Error: The GitHub repository $GITHUB_REPO is not found in the repository mapping."
+      exit 1
+    fi
+
+    # Now check if the JFrog repository is allowed
+    ALLOWED_REPO=$(yq eval '.repository_mapping[] | select(.github_repo == env.GITHUB_REPO) | .JFROG_ALLOWED_DESTINATION_REPOS[] | select(. == env.JFROG_REPO)' ./called-workflow-repo/config/jfrog/repo-mapping.yml)
+
+    if [ -z "$ALLOWED_REPO" ]; then
+      echo "Error: The GitHub repository $GITHUB_REPO is not allowed to deploy to JFrog repository $JFROG_REPO."
+      exit 1
+    else
+      echo "Success: The GitHub repository $GITHUB_REPO is allowed to deploy to JFrog repository $JFROG_REPO."
+    fi
+
 
       - name: Upload to JFrog
         run: |
