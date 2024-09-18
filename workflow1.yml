@@ -1,47 +1,46 @@
-# .github/workflows/reusable_workflow.yml
-name: Reusable Workflow to Check JFrog Repo Access
+# .github/workflows/download_artifact.yml
+name: Reusable Workflow for Downloading Artifact and Uploading to JFrog
 
 on:
   workflow_call:
-    inputs:
-      JFROG_REPO:
-        description: 'JFrog Repository Name'
-        required: true
-        type: string
 
 jobs:
-  check-jfrog-repo:
+  download-artifact:
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out the code
         uses: actions/checkout@v2
 
-      - name: Install yq (YAML query tool) using GitHub Action
-        uses: mikefarah/yq-action@v2
+      - name: Install yq (YAML query tool)
+        run: sudo apt-get install -y yq
+
+      - name: Download Latest Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ github.workflow }}-*  # Use wildcard to download the latest artifact uploaded with the workflow name
 
       - name: Extract GitHub repository name (ignoring organization)
         id: extract_repo_name
         run: |
-          # Extract the repository name without the organization part
           GITHUB_REPO_NAME=$(basename "${{ github.repository }}")
-          echo "Repository Name: $GITHUB_REPO_NAME"
           echo "repo_name=$GITHUB_REPO_NAME" >> $GITHUB_ENV
 
-      - name: Load Repository Mapping and Check Access
-        id: check_repo_access
+      - name: Check JFrog Repository Access
         run: |
-          # Get the GitHub repository name (without organization) and provided JFrog repository
           GITHUB_REPO="${{ env.repo_name }}"
-          JFROG_REPO="${{ inputs.JFROG_REPO }}"
-
-          # Check if the GitHub repository is in the mapping
+          JFROG_REPO="your-jfrog-repo"
           ALLOWED_REPO=$(yq eval '.allowed_repos[] | select(.github_repo == env.GITHUB_REPO) | .JFROG_ALLOWED_DESTINATION_REPOS[] | select(. == env.JFROG_REPO)' repo-mapping.yml)
 
-          # If ALLOWED_REPO is empty, the GitHub repo is not allowed to use the provided JFrog repo
           if [ -z "$ALLOWED_REPO" ]; then
             echo "Error: The GitHub repository $GITHUB_REPO is not allowed to deploy to JFrog repository $JFROG_REPO."
             exit 1
           else
             echo "Success: The GitHub repository $GITHUB_REPO is allowed to deploy to JFrog repository $JFROG_REPO."
           fi
+
+      - name: Upload to JFrog
+        run: |
+          JFROG_URL="your-jfrog-url"
+          ARTIFACT_PATH=$(ls -1 *.zip)
+          jfrog rt upload $ARTIFACT_PATH $JFROG_REPO/$ARTIFACT_PATH
