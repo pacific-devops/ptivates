@@ -13,14 +13,26 @@ if not TOKEN or not ORG_NAME:
 
 headers = {'Authorization': f'token {TOKEN}'}
 
-# Fetch repos from the GitHub API
-response = requests.get(f'https://api.github.com/orgs/{ORG_NAME}/repos', headers=headers)
-if response.status_code != 200:
-    print(f"Error: Failed to fetch repos. HTTP Status code: {response.status_code}")
-    print(response.text)
-    exit(1)
+# Initialize variables for pagination
+page = 1
+per_page = 100  # Max limit for per_page is 100
+all_repos = []
 
-repos = response.json()
+# Fetch all repos using pagination
+while True:
+    response = requests.get(f'https://api.github.com/orgs/{ORG_NAME}/repos', headers=headers, params={'page': page, 'per_page': per_page})
+    
+    if response.status_code != 200:
+        print(f"Error: Failed to fetch repos. HTTP Status code: {response.status_code}")
+        print(response.text)
+        exit(1)
+
+    repos = response.json()
+    if not repos:
+        break  # Exit the loop when no more repos are returned
+
+    all_repos.extend(repos)
+    page += 1  # Move to the next page
 
 # Specify the CSV output file path
 csv_file_path = 'repo_mapping.csv'
@@ -34,7 +46,7 @@ with open(csv_file_path, mode='w', newline='') as csv_file:
     writer.writeheader()
 
     # Write each repo's name and ID
-    for repo in repos:
+    for repo in all_repos:
         writer.writerow({'Repository Name': repo['name'], 'Repository ID': repo['id']})
 
 print(f"Repository mapping saved to {csv_file_path}")
