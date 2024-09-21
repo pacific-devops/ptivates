@@ -1,9 +1,7 @@
 name: Download from S3 and Upload to JFrog
 
 on:
-  push:
-    branches:
-      - main
+workflow_call:
 
 jobs:
   download-upload:
