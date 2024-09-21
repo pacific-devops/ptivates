@@ -1,0 +1,43 @@
+name: Upload Staged Files
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  job_1:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Generate artifact for Job 1
+      run: |
+        mkdir -p /tmp/staging  # Ensure staging directory exists
+        echo "This is the artifact from Job 1" > /tmp/staging/file1.txt
+
+    - name: Upload Staged Files (Job 1)
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: staged-files
+        path: /tmp/staging
+
+  job_2:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Generate artifact for Job 2
+      run: |
+        mkdir -p /tmp/staging  # Ensure staging directory exists
+        echo "This is the artifact from Job 2" > /tmp/staging/file2.txt
+
+    - name: Upload Staged Files (Job 2)
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: staged-files
+        path: /tmp/staging
