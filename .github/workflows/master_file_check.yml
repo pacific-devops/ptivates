@@ -40,4 +40,4 @@ jobs:
       if: always()
       with:
         name: staged-files
-        path: /tmp/staging
+        path: /tmp/staging/master
