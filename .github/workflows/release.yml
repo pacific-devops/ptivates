@@ -54,9 +54,8 @@ jobs:
           GITHUB_REPO: ${{ github.repositoryUrl }}
         run: |
           npm init -y;
-          ls -la
           mv  called-workflow-repo/.releaserc.mjs ./.releaserc.mjs
-
+          ls -la
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
