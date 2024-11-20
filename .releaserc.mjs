@@ -2,44 +2,38 @@ import semanticRelease from "semantic-release";
 
 const result = semanticRelease(
   {
-    // Define the branches to release from
-    "extends": "semantic-release-monorepo",
-    
+    extends: "semantic-release-monorepo",
+
     branches: [
-      { name: "main" }, // Main branch
-      { name: "feature/*", channel: "dev-feature", prerelease: '${name.replace("feature/", "dev-")}' }, // Feature branches
+      { name: "main" },
+      { name: "feature/*", channel: "dev-feature", prerelease: '${name.replace("feature/", "dev-")}' },
     ],
 
-    // Define the tag format
-    // The scope will be automatically extracted from the commit message or folder name in monorepos
-    "tagFormat": "${name}-v${version}",
+    // Use name as scope dynamically extracted from package.json
+    tagFormat: "${name}-v${version}",
 
     plugins: [
-      // Analyze commits and determine the release type based on Conventional Commits format
       [
         "@semantic-release/commit-analyzer", 
         { 
-          preset: "conventionalcommits", // Use Conventional Commits preset
+          preset: "conventionalcommits", 
         }
       ],
       
-      // Generate release notes based on the commit history
       [
         "@semantic-release/release-notes-generator", 
         {
-          preset: "conventionalcommits", // Use Conventional Commits preset for generating notes
+          preset: "conventionalcommits", 
         }
       ],
       
-      // Update the changelog file with the generated release notes
       [
         "@semantic-release/changelog", 
         {
-          changelogFile: "CHANGELOG.md", // Define changelog file to be updated
+          changelogFile: "CHANGELOG.md", 
         }
       ],
       
-      // Automatically execute shell commands during the release process
       [
         "@semantic-release/exec", 
         {
@@ -55,15 +49,13 @@ const result = semanticRelease(
         }
       ],
 
-      // Commit changes back to the git repository after release (e.g., version bump)
       "@semantic-release/git",
       
-      // Create a GitHub release with the generated release notes
       [
         "@semantic-release/github", 
         {
           successComment: false,
-          failTitle: false, // Optional: hide failure title in GitHub release
+          failTitle: false,
         }
       ],
     ],
@@ -74,7 +66,6 @@ const result = semanticRelease(
   }
 );
 
-// Execute the release process and log information
 result
   .then(({ lastRelease, commits, nextRelease, releases }) => {
     console.log(`Last release: ${lastRelease?.version}`);
