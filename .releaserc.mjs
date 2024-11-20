@@ -19,7 +19,7 @@ const result = semanticRelease(
       { name: "main" },
       { name: "feature/*", channel: "dev-feature", prerelease: '${name.replace("feature/", "dev-")}' }
     ],
-    tagFormat: '${name}-v${version}',
+    tagFormat: 'v${version}',
     plugins: [
       [
         '@semantic-release/commit-analyzer',
