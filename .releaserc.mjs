@@ -1,15 +1,15 @@
 import semanticRelease from "semantic-release";
+import monorepo from "semantic-release-monorepo";
 
 const result = semanticRelease(
   {
     extends: "semantic-release-monorepo",
 
     branches: [
-      "main" ,
+      "main",
       { name: "feature/*", prerelease: true },
     ],
 
-    // Use name as scope dynamically extracted from package.json
     tagFormat: "${name}-v${version}",
 
     plugins: [
