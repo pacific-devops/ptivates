@@ -5,7 +5,7 @@ const result = semanticRelease(
     extends: "semantic-release-monorepo",
 
     branches: [
-      { name: "main" },
+      "main" ,
       { name: "feature/*", channel: "dev-feature", prerelease: '${name.replace("feature/", "dev-")}' },
     ],
 
