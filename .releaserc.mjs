@@ -1,5 +1,6 @@
 import semanticRelease from "semantic-release";
 import { readdirSync } from "fs";
+import { statSync } from "fs";
 import { resolve } from "path";
 
 // Get folders dynamically from the root directory
