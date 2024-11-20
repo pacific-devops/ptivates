@@ -40,10 +40,17 @@ const result = semanticRelease(
         }
       ],
       ...packageFolders.map((packageName) => [
-        ['@semantic-release/changelog', { changelogFile: `${packageName}/CHANGELOG.md` }],
-        ['@semantic-release/git', { assets: [`${packageName}/CHANGELOG.md`, 'package.json'], message: `chore(release): ${packageName} ${"${nextRelease.version}"}` }],
-        ['@semantic-release/github', { successComment: false, failTitle: false }],
-      ]),
+        '@semantic-release/changelog',
+        { changelogFile: `${packageName}/CHANGELOG.md` },
+      ]).flat(),
+      ...packageFolders.map((packageName) => [
+        '@semantic-release/git',
+        { assets: [`${packageName}/CHANGELOG.md`, 'package.json'], message: `chore(release): ${packageName} ${"${nextRelease.version}"}` },
+      ]).flat(),
+      ...packageFolders.map((packageName) => [
+        '@semantic-release/github',
+        { successComment: false, failTitle: false },
+      ]).flat(),
       [
         '@semantic-release/exec',
         {
@@ -59,6 +66,7 @@ const result = semanticRelease(
     stderr: process.stderr
   }
 );
+
 result
   .then(({ lastRelease, commits, nextRelease, releases }) => {
     console.log(`Last release: ${lastRelease?.version}`);
