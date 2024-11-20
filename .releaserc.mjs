@@ -10,11 +10,10 @@ const result = semanticRelease(
       { name: "main" }, // Stable releases
       { 
         name: "feature/*", 
-        channel: "dev-${name.replace('feature/', '')}", // Dev channel includes branch name
         prerelease: "${name.replace('feature/', '')}" // Marks the release as a pre-release for the branch
       }
     ],
-    tagFormat: "${scope}-${channel ? `dev-${channel}` : ''}-v${version}", // Scoped tag format for stable and pre-releases
+    tagFormat: "${scope}-v${version}", // Scoped tag format for stable and pre-releases
 
     plugins: [
       [
