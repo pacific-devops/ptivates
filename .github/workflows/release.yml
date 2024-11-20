@@ -65,15 +65,3 @@ jobs:
       - name: Check NEXT_TAG value
         run: |
           echo "NEXT_TAG: ${{ steps.semantic-release.outputs.NEXT_TAG }}"
-
-      - name: JFrog Login
-        uses: mcd-actions/jfrog-login@v1
-        if: ${{ env.JFROG_FILE_NAME != '' && steps.semantic-release.outputs.NEXT_TAG != '' }}
-        with:
-          dd-api-key: ${{ secrets.MCD_ACTIONS_DD_API_KEY }}
-
-      - name: Update Release in JFrog Artifact
-        if: ${{ env.JFROG_FILE_NAME != '' && steps.semantic-release.outputs.NEXT_TAG != '' }}
-        run: |
-          jf rt set-props "${{ env.JFROG_FILE_NAME }}" \
-            "release.tag=${{ steps.semantic-release.outputs.NEXT_TAG }}"
