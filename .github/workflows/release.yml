@@ -82,7 +82,7 @@ jobs:
 
       - name: Run Semantic Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
         run: |
           ls -la
           node .releaserc.mjs ${{ env.JFROG_FILE_NAME }} ${{ env.JFROG_FILE_URL }}
