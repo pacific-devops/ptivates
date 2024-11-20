@@ -1,4 +1,13 @@
 import semanticRelease from "semantic-release";
+import { readFileSync } from 'fs';
+import path from 'path';
+
+// Function to get the package name
+const getPackageName = () => {
+  const packageJsonPath = path.resolve(process.cwd(), 'package.json');
+  const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
+  return packageJson.name;
+};
 
 const result = semanticRelease(
   {
@@ -9,7 +18,7 @@ const result = semanticRelease(
       { name: "feature/*", prerelease: true },
     ],
 
-    tagFormat: "${name}-v${version}",
+    tagFormat: `${getPackageName()}-v${version}`,
 
     plugins: [
       [
