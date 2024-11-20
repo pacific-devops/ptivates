@@ -16,12 +16,8 @@ const packageFolders = readdirSync(resolve("./"))
 const result = semanticRelease(
   {
     branches: [
-      { name: 'main' },
-      { 
-        name: 'feature/*', 
-        channel: 'dev-feature', 
-        prerelease: 'dev-${branch.replace("feature/", "")}' // Correcting this part
-      }
+      { name: "main" },
+      { name: "feature/*", channel: "dev-feature", prerelease: '${name.replace("feature/", "dev-")}' }
     ],
     tagFormat: '${name}-v${version}',
     plugins: [
