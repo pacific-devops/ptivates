@@ -1,0 +1,79 @@
+name: Utility - Create a Release
+
+on:
+  workflow_call:
+    inputs:
+      called-workflow-repository-ref:
+        description: Called repository workflow reference
+        required: true
+        type: string
+      jfrog-file-url:
+        description: Jfrog Artifact URL for specified repository
+        required: false
+        type: string
+        default: ""
+      jfrog-file-name:
+        description: Jfrog Artifact NAME for specified repository
+        required: false
+        type: string
+        default: ""
+
+permissions:
+  id-token: write
+  contents: write
+
+env:
+  CALLED_WORKFLOW_REPO_REF: ${{ inputs.called-workflow-repository-ref }}
+  JFROG_FILE_URL: ${{ inputs.jfrog-file-url }}
+  JFROG_FILE_NAME: ${{ inputs.jfrog-file-name }}
+
+jobs:
+  create-a-release:
+    name: Create a Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install Semantic Release
+        run: |
+          npm init -y
+          npm install --no-save \
+            semantic-release@22.0.12 \
+            @semantic-release/commit-analyzer@11.1.0 \
+            conventional-changelog-conventionalcommits@7.0.2 \
+            @semantic-release/exec@6.0.3 \
+            @semantic-release/git@10.0.1 \
+            @semantic-release/github@9.2.6 \
+            @semantic-release/release-notes-generator@12.1.0 \
+            @semantic-release/changelog@6.0.3
+
+      - name: Run Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node .releaserc.mjs ${{ env.JFROG_FILE_NAME }} ${{ env.JFROG_FILE_URL }}
+
+      - name: Check NEXT_TAG value
+        run: |
+          echo "NEXT_TAG: ${{ steps.semantic-release.outputs.NEXT_TAG }}"
+
+      - name: JFrog Login
+        uses: mcd-actions/jfrog-login@v1
+        if: ${{ env.JFROG_FILE_NAME != '' && steps.semantic-release.outputs.NEXT_TAG != '' }}
+        with:
+          dd-api-key: ${{ secrets.MCD_ACTIONS_DD_API_KEY }}
+
+      - name: Update Release in JFrog Artifact
+        if: ${{ env.JFROG_FILE_NAME != '' && steps.semantic-release.outputs.NEXT_TAG != '' }}
+        run: |
+          jf rt set-props "${{ env.JFROG_FILE_NAME }}" \
+            "release.tag=${{ steps.semantic-release.outputs.NEXT_TAG }}"
