@@ -56,8 +56,7 @@ jobs:
           {
             cd ${{ github.workspace}}
             npm init -y;
-            mv -f ${{ github.workspace}}/called-workflow-repo/.releaserc.mjs \
-                ${{ github.workspace}}/.releaserc.mjs
+            mv -f called-workflow-repo/.releaserc.mjs ./.releaserc.mjs
 
       - name: Checkout Code
         uses: actions/checkout@v4
