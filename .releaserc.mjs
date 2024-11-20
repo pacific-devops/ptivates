@@ -66,7 +66,7 @@ const result = semanticRelease(
       ],
       
       // Support for Monorepo setup (extracts scope from package/folder names)
-      "@semantic-release/monorepo", // This will help with Monorepo setup, extracting the scope dynamically
+      //"@semantic-release/monorepo", // This will help with Monorepo setup, extracting the scope dynamically
     ],
   },
   {
