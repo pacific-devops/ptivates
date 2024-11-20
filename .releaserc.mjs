@@ -3,6 +3,8 @@ import semanticRelease from "semantic-release";
 const result = semanticRelease(
   {
     // Define the branches to release from
+    extends: "semantic-release-monorepo",
+    
     branches: [
       { name: "main" }, // Main branch
       { name: "feature/*", channel: "dev-feature", prerelease: '${name.replace("feature/", "dev-")}' }, // Feature branches
@@ -64,9 +66,6 @@ const result = semanticRelease(
           failTitle: false, // Optional: hide failure title in GitHub release
         }
       ],
-      
-      // Support for Monorepo setup (extracts scope from package/folder names)
-      //"@semantic-release/monorepo", // This will help with Monorepo setup, extracting the scope dynamically
     ],
   },
   {
