@@ -1,5 +1,5 @@
 import semanticRelease from "semantic-release";
-import { readdirSync, statSync } from "fs"; // Import both readdirSync and statSync directly
+import { readdirSync, statSync } from "fs";
 import { resolve } from "path";
 
 // Get folders dynamically from the root directory
@@ -17,7 +17,11 @@ const result = semanticRelease(
   {
     branches: [
       { name: 'main' },
-      { name: 'feature/*', channel: 'dev-feature', prerelease: '${name.replace("feature/", "dev-")}' }
+      { 
+        name: 'feature/*', 
+        channel: 'dev-feature', 
+        prerelease: 'dev-${branch.replace("feature/", "")}' // Correcting this part
+      }
     ],
     tagFormat: '${name}-v${version}',
     plugins: [
