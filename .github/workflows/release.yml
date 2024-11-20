@@ -19,8 +19,14 @@ on:
         default: ""
 
 permissions:
-  id-token: write
-  contents: write
+  id-token: write           # git permission for ODIC handshake with jfrog
+  contents: write            # git permissions to repo pull/push
+  issues: write                # read/write to repo custom statuses and checks
+  statuses: write
+  actions: read
+  checks: write
+  pull-requests: write
+  
 
 env:
   CALLED_WORKFLOW_REPO_REF: ${{ inputs.called-workflow-repository-ref }}
@@ -33,6 +39,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Code Called Repository
+        uses: actions/checkout@v4
+        with:
+          # Full git history is needed to get a proper list of changed files
+          repository: 'pacific-devops/ptivates'
+          path: 'called-workflow-repo'
+          ref: ${{ env.CALLED_WORKFLOW_REPO_REF }}
+          fetch-depth: 0
+      
+      - name: Install and Create a Semantic Release
+        id: semantic-release
+        env:
+          GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO: ${{ github.repositoryUrl }}
+        run: |
+          {
+            cd ${{ github.workspace}}
+            npm init -y;
+
+            if ! [ -f ${{ github.workspace}}/.releaserc.mjs ]; then
+              mv -f ${{ github.workspace}}/called-workflow-repo/config/sem-release/.releaserc.mjs \
+                ${{ github.workspace}}/.releaserc.mjs
+              echo "INFO: Moved file  to current directory";
+            fi
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
