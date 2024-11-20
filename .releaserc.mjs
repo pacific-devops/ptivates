@@ -12,7 +12,7 @@ const result = semanticRelease(
 
     // Define the tag format
     // The scope will be automatically extracted from the commit message or folder name in monorepos
-    tagFormat: "${scope}-${channel}-v${version}",
+    "tagFormat: "${name}-v${version}",
 
     plugins: [
       // Analyze commits and determine the release type based on Conventional Commits format
