@@ -39,6 +39,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Checkout Code Called Repository
         uses: actions/checkout@v4
         with:
@@ -47,6 +51,7 @@ jobs:
           path: 'called-workflow-repo'
           ref: ${{ env.CALLED_WORKFLOW_REPO_REF }}
           fetch-depth: 0
+          
       - name: Install and Create a Semantic Release
         id: semantic-release
         env:
@@ -56,10 +61,6 @@ jobs:
           npm init -y;
           mv  called-workflow-repo/.releaserc.mjs ./.releaserc.mjs
           ls -la
-      - name: Checkout Code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Install Node.js
         uses: actions/setup-node@v3
