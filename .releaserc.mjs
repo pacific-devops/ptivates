@@ -1,6 +1,5 @@
 import semanticRelease from "semantic-release";
-import { readdirSync } from "fs";
-import { statSync } from "fs";
+import { readdirSync, statSync } from "fs"; // Import both readdirSync and statSync directly
 import { resolve } from "path";
 
 // Get folders dynamically from the root directory
@@ -10,7 +9,7 @@ const packageFolders = readdirSync(resolve("./"))
     return (
       !folder.startsWith(".") && // Exclude hidden files/folders
       !["node_modules", "dist", "build"].includes(folder) && // Exclude standard folders
-      require("fs").statSync(path).isDirectory()
+      statSync(path).isDirectory() // Use statSync imported from 'fs'
     );
   });
 
