@@ -1,69 +1,66 @@
 import semanticRelease from "semantic-release";
-import { readdirSync, statSync } from "fs";
-import { resolve } from "path";
 
-// Get folders dynamically from the root directory
-const packageFolders = readdirSync(resolve("./"))
-  .filter((folder) => {
-    const path = resolve(folder);
-    return (
-      !folder.startsWith(".") && // Exclude hidden files/folders
-      !["node_modules", "dist", "build"].includes(folder) && // Exclude standard folders
-      statSync(path).isDirectory() // Use statSync imported from 'fs'
-    );
-  });
+const args = process.argv.slice(2);
+const jFrogFileName = args[0];
+const jFrogFileUrl = args[1];
 
 const result = semanticRelease(
   {
     branches: [
-      { name: "main" },
-      { name: "feature/*", channel: "dev-feature", prerelease: '${name.replace("feature/", "dev-")}' }
+      { name: "main" }, // Stable releases
+      { 
+        name: "feature/*", 
+        channel: "dev-${name.replace('feature/', '')}", // Dev channel includes branch name
+        prerelease: "${name.replace('feature/', '')}" // Marks the release as a pre-release for the branch
+      }
     ],
-    tagFormat: 'v${version}',
+    tagFormat: "${scope}-${channel ? `dev-${channel}` : ''}-v${version}", // Scoped tag format for stable and pre-releases
+
     plugins: [
       [
-        '@semantic-release/commit-analyzer',
-        {
-          preset: 'conventionalcommits',
-          releaseRules: [
-            { type: 'feat', release: 'minor' },
-            { type: 'fix', release: 'patch' },
-            { type: 'perf', release: 'patch' },
-            { type: 'BREAKING CHANGE', release: 'major' }
-          ]
-        }
+        "@semantic-release/commit-analyzer",
+        { preset: "conventionalcommits" }
       ],
       [
-        '@semantic-release/release-notes-generator',
+        "@semantic-release/release-notes-generator",
+        { preset: "conventionalcommits" }
+      ],
+      [
+        "@semantic-release/changelog",
+        { changelogFile: "CHANGELOG.md" }
+      ],
+      [
+        "@semantic-release/exec",
         {
-          preset: 'conventionalcommits'
+          generateNotesCmd: `
+            echo "PREV_TAG=v${lastRelease.version}" >> $GITHUB_OUTPUT;
+            echo "NEXT_TAG=v${nextRelease.version}" >> $GITHUB_OUTPUT;
+            echo "RELEASE_TYPE=${nextRelease.type}" >> $GITHUB_OUTPUT;
+            if [ "${jFrogFileName}" != "" ]; then 
+              echo "### Artifact Reference";
+              echo "* JFrog Artifact link ([${jFrogFileName}](${jFrogFileUrl}))";
+            fi;
+          `
         }
       ],
-      ...packageFolders.map((packageName) => [
-        '@semantic-release/changelog',
-        { changelogFile: `${packageName}/CHANGELOG.md` },
-      ]).flat(),
-      ...packageFolders.map((packageName) => [
-        '@semantic-release/git',
-        { assets: [`${packageName}/CHANGELOG.md`, 'package.json'], message: `chore(release): ${packageName} ${"${nextRelease.version}"}` },
-      ]).flat(),
-      ...packageFolders.map((packageName) => [
-        '@semantic-release/github',
-        { successComment: false, failTitle: false },
-      ]).flat(),
+      "@semantic-release/git",
       [
-        '@semantic-release/exec',
+        "@semantic-release/github",
         {
-          generateNotesCmd: `echo "PREV_TAG=v\${lastRelease.version}" >> $GITHUB_OUTPUT; \
-            echo "NEXT_TAG=v\${nextRelease.version}" >> $GITHUB_OUTPUT; \
-            echo "RELEASE_TYPE=\${nextRelease.type}" >> $GITHUB_OUTPUT;`
+          successComment: false,
+          failTitle: false,
         }
       ]
-    ]
+    ],
+
+    parserOpts: {
+      headerPattern: /^(\w*)(?:\(([\w$.\-*/ ]*)\))?: (.*)$/,
+      headerCorrespondence: ["type", "scope", "subject"],
+    },
   },
   {
     stdout: process.stdout,
-    stderr: process.stderr
+    stderr: process.stderr,
   }
 );
 
