@@ -59,7 +59,7 @@ jobs:
             npm init -y;
 
             if ! [ -f ${{ github.workspace}}/.releaserc.mjs ]; then
-              mv -f ${{ github.workspace}}/called-workflow-repo/config/sem-release/.releaserc.mjs \
+              mv -f ${{ github.workspace}}/called-workflow-repo/.releaserc.mjs \
                 ${{ github.workspace}}/.releaserc.mjs
               echo "INFO: Moved file  to current directory";
             fi
