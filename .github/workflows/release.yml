@@ -78,7 +78,8 @@ jobs:
             @semantic-release/git@10.0.1 \
             @semantic-release/github@9.2.6 \
             @semantic-release/release-notes-generator@12.1.0 \
-            @semantic-release/changelog@6.0.3
+            @semantic-release/changelog@6.0.3 \
+            @semantic-release/monorepo
 
       - name: Run Semantic Release
         env:
