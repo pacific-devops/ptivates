@@ -1,5 +1,5 @@
 import semanticRelease from "semantic-release";
-import monorepo from "semantic-release-monorepo";
+import { monorepo } from "semantic-release-monorepo";
 
 const result = semanticRelease(
   {
