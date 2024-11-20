@@ -47,7 +47,6 @@ jobs:
           path: 'called-workflow-repo'
           ref: ${{ env.CALLED_WORKFLOW_REPO_REF }}
           fetch-depth: 0
-      
       - name: Install and Create a Semantic Release
         id: semantic-release
         env:
@@ -57,12 +56,9 @@ jobs:
           {
             cd ${{ github.workspace}}
             npm init -y;
-
-            if ! [ -f ${{ github.workspace}}/.releaserc.mjs ]; then
-              mv -f ${{ github.workspace}}/called-workflow-repo/.releaserc.mjs \
+            mv -f ${{ github.workspace}}/called-workflow-repo/.releaserc.mjs \
                 ${{ github.workspace}}/.releaserc.mjs
-              echo "INFO: Moved file  to current directory";
-            fi
+
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
