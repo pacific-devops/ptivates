@@ -3,7 +3,7 @@ import semanticRelease from "semantic-release";
 const result = semanticRelease(
   {
     // Define the branches to release from
-    extends: "semantic-release-monorepo",
+    "extends": "semantic-release-monorepo",
     
     branches: [
       { name: "main" }, // Main branch
