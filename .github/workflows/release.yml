@@ -53,10 +53,9 @@ jobs:
           GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPO: ${{ github.repositoryUrl }}
         run: |
-          {
-            cd ${{ github.workspace}}
-            npm init -y;
-            mv -f called-workflow-repo/.releaserc.mjs ./.releaserc.mjs
+          npm init -y;
+          ls -la
+          mv  called-workflow-repo/.releaserc.mjs ./.releaserc.mjs
 
       - name: Checkout Code
         uses: actions/checkout@v4
