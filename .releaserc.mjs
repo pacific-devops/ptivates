@@ -18,7 +18,7 @@ const result = semanticRelease(
       { name: "feature/*", prerelease: true },
     ],
 
-    tagFormat: `${getPackageName()}-v${version}`,
+    tagFormat: `${getPackageName()}`-v${version},
 
     plugins: [
       [
