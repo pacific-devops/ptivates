@@ -6,7 +6,7 @@ const result = semanticRelease(
 
     branches: [
       "main" ,
-      { name: "feature/*", channel: "dev-feature", prerelease: '${name.replace("feature/", "dev-")}' },
+      { name: "feature/*", channel: "dev-feature"},
     ],
 
     // Use name as scope dynamically extracted from package.json
