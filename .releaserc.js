@@ -7,5 +7,6 @@ module.exports = {
     "@semantic-release/github",
     "@semantic-release/git"
   ]
+  "tagFormat": "${name}-v${version}"
 };
 
