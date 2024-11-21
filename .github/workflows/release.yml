@@ -86,7 +86,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
         run: |
           ls -la
-          node .releaserc.mjs
+          npx semantic-release
 
       - name: Check NEXT_TAG value
         run: |
