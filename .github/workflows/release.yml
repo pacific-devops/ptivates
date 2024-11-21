@@ -79,14 +79,19 @@ jobs:
             @semantic-release/github@9.2.6 \
             @semantic-release/release-notes-generator@12.1.0 \
             @semantic-release/changelog@6.0.3 \
-            semantic-release-monorepo
+            semantic-release-monorepo \
+            lerna
+      
+      - name : runlearna
+        run: |
+          npx lerna bootstrap
 
       - name: Run Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
         run: |
           ls -la
-          npx semantic-release
+          npx lerna exec -- npx semantic-release
 
       - name: Check NEXT_TAG value
         run: |
