@@ -81,10 +81,7 @@ jobs:
             @semantic-release/changelog@6.0.3 \
             semantic-release-monorepo \
             lerna
-      
-      - name : runlearna
-        run: |
-          npx lerna bootstrap
+    
 
       - name: Run Semantic Release
         env:
