@@ -6,7 +6,7 @@ module.exports = {
     "@semantic-release/changelog",
     "@semantic-release/github",
     "@semantic-release/git"
-  ]
+  ],
   "tagFormat": "${name}-v${version}"
 };
 
