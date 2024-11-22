@@ -78,8 +78,7 @@ jobs:
             @semantic-release/github@9.2.6 \
             @semantic-release/release-notes-generator@12.1.0 \
             @semantic-release/changelog@6.0.3 \
-            semantic-release-monorepo \
-            lerna
+            conventional-changelog-conventionalcommits
     
 
       - name: Run Semantic Release
@@ -87,7 +86,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
         run: |
            #lerna exec --concurrency 1 -- semantic-release -e semantic-release-monorepo
-           npx semantic-release -e semantic-release-monorepo
+           npx semantic-release
 
       - name: Check NEXT_TAG value
         run: |
