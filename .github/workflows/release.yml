@@ -86,7 +86,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
         run: |
-          lerna exec --concurrency 1 -- semantic-release -e semantic-release-monorepo
+          # lerna exec --concurrency 1 -- semantic-release -e semantic-release-monorepo
+          npm run semantic-release -e semantic-release-monorepo
 
       - name: Check NEXT_TAG value
         run: |
