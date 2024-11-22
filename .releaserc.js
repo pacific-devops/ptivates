@@ -1,7 +1,7 @@
 module.exports = {
   "branches": ["main"],
   //"tagFormat": "${packageName}-v${version}",
-  "tagFormat": "${name}-v${version}",
+  "tagFormat": "v${version}",
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
