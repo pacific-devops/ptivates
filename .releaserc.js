@@ -9,5 +9,6 @@ module.exports = {
     "@semantic-release/git"
   ],
     "tagFormat": "${scope}-v${version}",
+  "extend": "semantic-release-monorepo" 
 };
 
