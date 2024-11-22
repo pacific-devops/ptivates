@@ -9,6 +9,12 @@ module.exports = {
     "@semantic-release/git"
   ],
     "tagFormat": "${scope}-v${version}",
-  "extend": "semantic-release-monorepo" 
+  "extend": "semantic-release-monorepo",
+  prepare: [
+    {
+      path: '@semantic-release/commit-analyzer',
+      release: process.env.SCOPE ? process.env.SCOPE : 'default',  // Dynamically set scope
+    }
+  ]
 };
 
