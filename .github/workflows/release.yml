@@ -80,6 +80,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18"
+          cache: "yarn"
 
       - name: Install Semantic Release
         run: |
@@ -97,12 +98,8 @@ jobs:
     
 
       - name: Run Semantic Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
-          scope: ${{ env.SCOPE }}
         run: |
-           #lerna exec --concurrency 1 -- semantic-release -e semantic-release-monorepo
-           npx semantic-release --ci --debug --scope ${{ env.SCOPE }}
+           yarn semantic-release
 
       - name: Check NEXT_TAG value
         run: |
