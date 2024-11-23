@@ -50,22 +50,7 @@ jobs:
           repository: 'pacific-devops/ptivates'
           path: 'called-workflow-repo'
           ref: ${{ env.CALLED_WORKFLOW_REPO_REF }}
-      - name: Get changed paths
-        id: get-changed-paths
-        run: |
-          CHANGED_PATHS=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
-          echo "Changed paths: $CHANGED_PATHS"
-          echo "CHANGED_PATHS=$CHANGED_PATHS" >> $GITHUB_ENV
-
-      - name: Set dynamic scope
-        id: set-scope
-        run: |
-          # Extract the first two folder names from changed paths (e.g., 'ui/pack' for 'ui/pack/test.js')
-          SCOPE=$(echo "$CHANGED_PATHS" | grep -oP '^[^/]+/[^/]+')
-          echo "Detected scope: $SCOPE"
-          echo "SCOPE=$SCOPE" >> $GITHUB_ENV
-
-          
+       
       - name: Install and Create a Semantic Release
         id: semantic-release
         env:
@@ -94,7 +79,9 @@ jobs:
             @semantic-release/github@9.2.6 \
             @semantic-release/release-notes-generator@12.1.0 \
             @semantic-release/changelog@6.0.3 \
-            conventional-changelog-conventionalcommits
+            conventional-changelog-conventionalcommits \
+            @semantic-release/npm \
+            semantic-release-monorepo
     
 
       - name: Run Semantic Release
