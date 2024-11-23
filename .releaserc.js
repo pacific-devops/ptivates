@@ -1,20 +1,24 @@
-module.exports = {
+{
   "branches": ["main"],
-  "preset": "conventionalcommits",
+  "tagFormat": "${name}-v${version}",
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
-    "@semantic-release/github",
-    "@semantic-release/git"
+    [
+      "@semantic-release/github",
+      {
+        "assets": [
+          {"path": "CHANGELOG.md", "label": "Changelog"}
+        ]
+      }
+    ]
   ],
-    "tagFormat": "${scope}-v${version}",
-  "extend": "semantic-release-monorepo",
-  prepare: [
-    {
-      path: '@semantic-release/commit-analyzer',
-      release: process.env.SCOPE ? process.env.SCOPE : 'default',  // Dynamically set scope
-    }
-  ]
-};
+    "extend": "semantic-release-monorepo",
+}
+
+
+
+
+
 
