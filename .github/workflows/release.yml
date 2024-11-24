@@ -84,6 +84,8 @@ jobs:
     
 
       - name: Run Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
         run: |
            yarn workspaces run semantic-release -e semantic-release-monorepo
 
