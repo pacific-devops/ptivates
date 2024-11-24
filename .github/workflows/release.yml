@@ -85,7 +85,7 @@ jobs:
 
       - name: Run Semantic Release
         run: |
-           yarn semantic-release
+           yarn workspaces run semantic-release -e semantic-release-monorepo
 
       - name: Check NEXT_TAG value
         run: |
