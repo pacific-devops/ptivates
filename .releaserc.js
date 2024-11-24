@@ -14,7 +14,7 @@ module.exports = {
       }
     ]
   ],
-    "extend": "semantic-release-monorepo",
+    "extends": "semantic-release-monorepo",
 }
 
 
