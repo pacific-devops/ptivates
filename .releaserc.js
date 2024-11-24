@@ -1,4 +1,4 @@
-{
+module.exports = {
   "branches": ["main"],
   "tagFormat": "${name}-v${version}",
   "plugins": [
