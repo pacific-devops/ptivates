@@ -11,7 +11,7 @@ module.exports = {
   ],
   "extends": "semantic-release-monorepo",  // Use semantic-release-monorepo for monorepo handling
   //tagFormat: "v${version}",  // Set format for version tags
-  tagFormat: `${packageJson.name}-v${version}`
+  tagFormat: `${packageJson.name}-v${packageJson.version}`
 }
 
 
