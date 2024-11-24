@@ -1,6 +1,5 @@
 module.exports = {
   "branches": ["main"],
-  tagFormat: "${npm_package_name}-v${version}",
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
@@ -14,7 +13,8 @@ module.exports = {
       }
     ]
   ],
-    "extends": "semantic-release-monorepo",
+  extends: "semantic-release-monorepo",  // Use semantic-release-monorepo for monorepo handling
+  tagFormat: "${name}-v${version}",  // Set format for version tags
 }
 
 
