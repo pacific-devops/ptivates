@@ -80,14 +80,14 @@ jobs:
             @semantic-release/changelog@6.0.3 \
             conventional-changelog-conventionalcommits \
             @semantic-release/npm \
-            semantic-release-monorepo
+            multi-semantic-release
     
 
       - name: Run Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
         run: |
-           yarn workspaces run semantic-release -e semantic-release-monorepo
+           npx multi-semantic-release --deps.release=inherit
 
       - name: Check NEXT_TAG value
         run: |
