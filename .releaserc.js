@@ -1,3 +1,5 @@
+const path = require("path");
+const packageJson = require(path.resolve(process.cwd(), "package.json"));
 module.exports = {
   "branches": ["main"],
   "plugins": [
@@ -7,12 +9,5 @@ module.exports = {
     "@semantic-release/github",
     "@semantic-release/git"
   ],
-  tagFormat: "v${version}",  // Set format for version tags
-  //tagFormat: `${packageJson.name}-v${"${version}"}`
-}
-
-
-
-
-
-
+  tagFormat: `${packageJson.name}-v${version}` // Correctly interpolates version
+};
