@@ -81,7 +81,7 @@ jobs:
             @semantic-release/changelog@6.0.3 \
             conventional-changelog-conventionalcommits \
             @semantic-release/npm \
-            multi-semantic-release
+            @qiwi/multi-semantic-release \
     
 
       - name: Run Semantic Release
