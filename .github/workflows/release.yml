@@ -58,7 +58,8 @@ jobs:
           GITHUB_REPO: ${{ github.repositoryUrl }}
         run: |
           npm init -y;
-          mv  called-workflow-repo/.multi-releaserc.js ./.multi-releaserc.js
+          ls -la called-workflow-repo
+          mv called-workflow-repo/.multi-releaserc.js ./.multi-releaserc.js
           ls -la
 
       - name: Install Node.js
