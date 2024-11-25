@@ -6,36 +6,36 @@ module.exports = {
   tagFormat: "v${version}",
   plugins: [
     [
-      "@semantic-release/commit-analyzer", 
+      "@semantic-release/commit-analyzer",
       { "preset": "conventionalcommits" }
     ],
     [
-      "@semantic-release/release-notes-generator", 
+      "@semantic-release/release-notes-generator",
       { "preset": "conventionalcommits" }
     ],
     [
-      "@semantic-release/changelog", 
+      "@semantic-release/changelog",
       { "changelogFile": "CHANGELOG.md" }
     ],
     [
-      "@semantic-release/exec", 
+      "@semantic-release/exec",
       {
-        generateNotesCmd: `
-          echo "PREV_TAG=v${lastRelease.version}" >> $GITHUB_OUTPUT;
-          echo "NEXT_TAG=v${nextRelease.version}" >> $GITHUB_OUTPUT;
-          if [ "${process.argv.slice(2)[0]}" != "" ]; then 
-            echo "### Artifact Reference"; 
-            echo "* JFrog Artifact link ([${process.argv.slice(2)[0]}](${process.argv.slice(2)[1]}))"; 
-          fi
-        `
+        prepareCmd: "npx lerna version --yes --conventional-commits --no-push --preid ${nextRelease.channel}",
+        publishCmd: "npx lerna publish from-package --yes"
       }
     ],
-    "@semantic-release/git",
     [
-      "@semantic-release/github", 
+      "@semantic-release/git",
       {
-        "successComment": false, 
-        "failTitle": false 
+        assets: ["CHANGELOG.md", "package.json", "packages/*/package.json"],
+        message: "chore(release): ${nextRelease.version} [skip ci]"
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        successComment: false,
+        failTitle: false
       }
     ]
   ]
