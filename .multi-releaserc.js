@@ -1,7 +1,9 @@
 const path = require("path");
 const packageJson = require(path.resolve(process.cwd(), "package.json"));
 module.exports = {
-  "branches": ["main"],
+  "branches": [
+    "main"
+  ],
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
