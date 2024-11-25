@@ -22,6 +22,11 @@ module.exports = {
       {
         prepareCmd: "npx lerna version --yes --conventional-commits --no-push --preid ${nextRelease.channel}",
         publishCmd: "npx lerna publish from-package --yes"
+        successCmd: `
+          echo "## Assets" >> release-assets.md
+          echo "- [Source code (zip)](https://github.com/owner/repo/archive/\${nextRelease.version}.zip)" >> release-assets.md
+          echo "- [Source code (tar.gz)](https://github.com/owner/repo/archive/\${nextRelease.version}.tar.gz)" >> release-assets.md
+        `
       }
     ],
     [
