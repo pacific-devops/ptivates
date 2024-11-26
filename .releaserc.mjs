@@ -42,12 +42,6 @@ const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
             message: `chore(release): ${customInput} [skip ci]`,
           },
         ],
-        [
-         "semantic-release-monorepo",
-          {
-            packages: ["monorepo-yarn-testing", "java","python"]
-          }
-        ],
       ],
     },
     {
