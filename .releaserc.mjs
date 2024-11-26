@@ -15,7 +15,7 @@ const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 (async () => {
   const result = await semanticRelease(
     {
-      branches: ["main"],
+      branches: ["main","feature/yarn-testing"],
       tagFormat: `${packageJson.name}-v${"${version}"}`,
       plugins: [
         "@semantic-release/commit-analyzer",
