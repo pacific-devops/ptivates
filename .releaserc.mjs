@@ -17,6 +17,7 @@ const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
     {
       branches: ["main","feature/yarn-testing"],
       tagFormat: `${packageJson.name}-v${"${version}"}`,
+      "extends": "semantic-release-monorepo",
       plugins: [
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
