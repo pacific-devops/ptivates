@@ -69,7 +69,7 @@ jobs:
       - name: Install Semantic Release
         run: |
           npm init -y
-          yarn add -D -W \
+          npm install \
             semantic-release@22.0.12 \
             @semantic-release/commit-analyzer@11.1.0 \
             conventional-changelog-conventionalcommits@7.0.2 \
@@ -89,7 +89,8 @@ jobs:
         run: |
           ls -la 
           ## yarn workspaces run semantic-release -e semantic-release-monorepo -- "release-notes-v1"
-          yarn workspaces run semantic-release -e semantic-release-monorepo
+          #yarn workspaces run semantic-release -e semantic-release-monorepo
+          node .releaserc.mjs
 
       - name: Check NEXT_TAG value
         run: |
