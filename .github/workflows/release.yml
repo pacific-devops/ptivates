@@ -87,7 +87,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
         run: |
-           yarn workspaces run semantic-release -e semantic-release-monorepo -- "release-notes-v1"
+          ## yarn workspaces run semantic-release -e semantic-release-monorepo -- "release-notes-v1"
+          yarn semantic-release -e semantic-release-monorepo -- "release-notes-v1"
 
       - name: Check NEXT_TAG value
         run: |
