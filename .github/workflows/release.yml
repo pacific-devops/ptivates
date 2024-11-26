@@ -88,7 +88,7 @@ jobs:
         run: |
           ls -la 
           ## yarn workspaces run semantic-release -e semantic-release-monorepo -- "release-notes-v1"
-          yarn workspaces run semantic-release -e semantic-release-monorepo .releaserc.mjs
+          yarn workspaces run semantic-release -e semantic-release-monorepo
           ##node .releaserc.mjs
 
       - name: Check NEXT_TAG value
