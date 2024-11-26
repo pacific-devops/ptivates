@@ -16,6 +16,15 @@ module.exports = {
         assets: ["CHANGELOG.md", "package.json"],
         message: `chore(release): ${packageJson.name} v\${nextRelease.version} (${customInput}) [skip ci]`,
       },
+      
+    ],
+        [
+      "@semantic-release/exec",
+      {
+        prepareCmd: `yarn workspaces run semantic-release -e semantic-release-monorepo`,
+        publishCmd: `echo "Release Notes Generated with: ${customInput}"`,
+      },
+      
     ],
     "@semantic-release/github",
   ],
