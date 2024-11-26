@@ -31,6 +31,7 @@ const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
           "@semantic-release/exec",
           {
             prepareCmd: `echo "Custom Input: ${customInput}" >> release-notes.txt`,
+            publishCmd: "yarn semantic-release -e semantic-release-monorepo", 
           },
         ],
         "@semantic-release/github",
