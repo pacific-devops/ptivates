@@ -87,9 +87,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
         run: |
+          ls -la 
           ## yarn workspaces run semantic-release -e semantic-release-monorepo -- "release-notes-v1"
           ##yarn semantic-release -e semantic-release-monorepo -- "release-notes-v1"
-          node .release.js "My Custom Input for Release"
+          node .releaserc.js "My Custom Input for Release"
 
       - name: Check NEXT_TAG value
         run: |
