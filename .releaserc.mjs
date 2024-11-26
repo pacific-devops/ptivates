@@ -1,8 +1,16 @@
-const path = require("path");
-const packageJson = require(path.resolve(process.cwd(), "package.json"));
-const semanticRelease = require("semantic-release");
+import path from 'path';
+import fs from 'fs';
+import { exec } from 'child_process';
+import semanticRelease from 'semantic-release';
+import { fileURLToPath } from 'url';
 
 const customInput = process.argv[2] || "Default Release Notes";
+
+// Get the current directory and resolve the package.json path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const packageJsonPath = path.resolve(__dirname, 'package.json');
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 
 (async () => {
   const result = await semanticRelease(
@@ -50,5 +58,3 @@ const customInput = process.argv[2] || "Default Release Notes";
   console.error(err);
   process.exit(1);
 });
-  
-
