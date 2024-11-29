@@ -18,7 +18,7 @@ const semanticRelease = async () => {
           { name: "main" },
           { name: "feature/*", channel: "dev-feature", prerelease: '${name.replace("feature/", "dev-")}' },
         ],
-        tagFormat: `${packageJson.name}-v${"${version}"}`,
+        tagFormat: `${packageJson.name}-v${version}`,
         plugins: [
           [
             "@semantic-release/commit-analyzer",
@@ -36,7 +36,9 @@ const semanticRelease = async () => {
             "@semantic-release/exec",
             {
               generateNotesCmd: `
-                echo "PREV_TAG=v${lastRelease.version}" >> $GITHUB_OUTPUT;
+                if [ "${lastRelease.version}" != "" ]; then
+                  echo "PREV_TAG=v${lastRelease.version}" >> $GITHUB_OUTPUT;
+                fi
                 echo "NEXT_TAG=v${nextRelease.version}" >> $GITHUB_OUTPUT;
                 echo "RELEASE_TYPE=${nextRelease.type}" >> $GITHUB_OUTPUT;
                 if [ "${jFrogFileName}" != "" ]; then
@@ -65,7 +67,8 @@ const semanticRelease = async () => {
     console.log(`Last release: ${result.lastRelease?.version}`);
     console.log(`Next release: ${result.nextRelease?.version}`);
   } catch (err) {
-    console.error("The automated release failed with %O", err);
+    console.error("Release failed: ", err);
+    console.error("Details: ", err.message);
     process.exit(1);
   }
 };
