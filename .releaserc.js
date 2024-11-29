@@ -13,13 +13,7 @@ module.exports = {
       "@semantic-release/exec",
         {
           generateNotesCmd: `
-              echo "PREV_TAG=v${lastRelease.version}" >> $GITHUB_OUTPUT;
-              echo "NEXT_TAG=v${nextRelease.version}" >> $GITHUB_OUTPUT;
-              echo "RELEASE_TYPE=${nextRelease.type}" >> $GITHUB_OUTPUT;
-              if [ "${jFrogFileName}" != "" ]; then
                 echo "### Artifact Reference" >> release-notes.md;
-                echo "* JFrog Artifact link ([${jFrogFileName}](${jFrogFileUrl}))" >> release-notes.md;
-              fi
             `,
           },
         ]
