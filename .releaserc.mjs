@@ -1,62 +1,73 @@
-import path from 'path';
-import fs from 'fs';
-import { exec } from 'child_process';
-import semanticRelease from 'semantic-release';
-import { fileURLToPath } from 'url';
+const path = require("path");
+const fs = require("fs");
 
-const customInput = process.argv[2] || "Default Release Notes";
-
-// Get the current directory and resolve the package.json path
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const packageJsonPath = path.resolve(__dirname, 'package.json');
-const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-
-(async () => {
-  const result = await semanticRelease(
-    {
-      branches: ["main","feature/yarn-testing"],
-      tagFormat: `${packageJson.name}-v${"${version}"}`,
-      "extends": "semantic-release-monorepo",
-      plugins: [
-        "@semantic-release/commit-analyzer",
-        "@semantic-release/release-notes-generator",
-        [
-          "@semantic-release/changelog",
-          {
-            changelogFile: "CHANGELOG.md",
-          },
-        ],
-        [
-          "@semantic-release/exec",
-          {
-            prepareCmd: `echo "Custom Input: ${customInput}" >> release-notes.txt`,
-            publishCmd: "yarn semantic-release -e semantic-release-monorepo"
-          },
-        ],
-        "@semantic-release/github",
-        [
-          "@semantic-release/git",
-          {
-            assets: ["CHANGELOG.md"],
-            message: `chore(release): ${customInput} [skip ci]`,
-          },
-        ],
-      ],
-    },
-    {
-      cwd: process.cwd(),
-      stdout: process.stdout,
-      stderr: process.stderr,
-    }
+const semanticRelease = async () => {
+  const { default: release } = await import("semantic-release");
+  const packageJson = JSON.parse(
+    fs.readFileSync(path.resolve(process.cwd(), "package.json"), "utf-8")
   );
 
-  if (result) {
-    console.log(`Released version: ${result.nextRelease.version}`);
-  } else {
-    console.log("No release made.");
+  const args = process.argv.slice(2);
+  const jFrogFileName = args[0];
+  const jFrogFileUrl = args[1];
+
+  try {
+    const result = await release(
+      {
+        branches: [
+          { name: "main" },
+          { name: "feature/*", channel: "dev-feature", prerelease: '${name.replace("feature/", "dev-")}' },
+        ],
+        tagFormat: `${packageJson.name}-v${"${version}"}`,
+        plugins: [
+          [
+            "@semantic-release/commit-analyzer",
+            { preset: "conventionalcommits" },
+          ],
+          [
+            "@semantic-release/release-notes-generator",
+            { preset: "conventionalcommits" },
+          ],
+          [
+            "@semantic-release/changelog",
+            { changelogFile: "CHANGELOG.md" },
+          ],
+          [
+            "@semantic-release/exec",
+            {
+              generateNotesCmd: `
+                echo "PREV_TAG=v${lastRelease.version}" >> $GITHUB_OUTPUT;
+                echo "NEXT_TAG=v${nextRelease.version}" >> $GITHUB_OUTPUT;
+                echo "RELEASE_TYPE=${nextRelease.type}" >> $GITHUB_OUTPUT;
+                if [ "${jFrogFileName}" != "" ]; then
+                  echo "### Artifact Reference" >> release-notes.md;
+                  echo "* JFrog Artifact link ([${jFrogFileName}](${jFrogFileUrl}))" >> release-notes.md;
+                fi
+              `,
+            },
+          ],
+          "@semantic-release/git",
+          [
+            "@semantic-release/github",
+            {
+              successComment: false,
+              failTitle: false,
+            },
+          ],
+        ],
+      },
+      {
+        stdout: process.stdout,
+        stderr: process.stderr,
+      }
+    );
+
+    console.log(`Last release: ${result.lastRelease?.version}`);
+    console.log(`Next release: ${result.nextRelease?.version}`);
+  } catch (err) {
+    console.error("The automated release failed with %O", err);
+    process.exit(1);
   }
-})().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+};
+
+semanticRelease();
