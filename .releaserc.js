@@ -19,10 +19,7 @@ plugins: [
           [
             "@semantic-release/exec",
             {
-              generateNotesCmd: `
-                echo "### Artifact Reference" >> release-notes.md;
-                echo "* JFrog Artifact link ([master.zip](https://jfrog.com))" >> release-notes.md;
-              `,
+              generateNotesCmd: "echo '### Artifact Reference' >> release-notes.md"
             },
           ],
           "@semantic-release/git",
