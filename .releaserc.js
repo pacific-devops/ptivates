@@ -13,10 +13,11 @@ module.exports = {
       "@semantic-release/exec",
         {
           generateNotesCmd: `
-                echo "### Artifact Reference" >> release-notes.md;
-            `,
-          },
-        ]
+               echo "### Artifact Reference" >> release-notes.md;
+              echo "* JFrog Artifact link ([hardcoded-artifact.zip](https://jfrog.com/hardcoded-artifact.zip))" >> release-notes.md;
+        `,
+      },
+    ]
 
   ],
   extends: "semantic-release-monorepo",  // Use semantic-release-monorepo for monorepo handling
