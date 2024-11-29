@@ -13,11 +13,10 @@ module.exports = {
       "@semantic-release/exec",
       {
         generateNotesCmd: `
-          if [ -n "${process.env.JFROG_FILE_NAME}" ] && [ -n "${process.env.JFROG_FILE_URL}" ]; then
             echo "### Artifact Reference" >> release-notes.md;
             echo "* JFrog Artifact link ([${process.env.JFROG_FILE_NAME}](${process.env.JFROG_FILE_URL}))" >> release-notes.md;
           fi
-        `
+        `,
       }
     ]
   ],
