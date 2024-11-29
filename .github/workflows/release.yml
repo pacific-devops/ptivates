@@ -86,6 +86,8 @@ jobs:
       - name: Run Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+          JFROG_FILE_NAME: ${{inputs.jfrog-file-name}}
+          JFROG_FILE_URL: ${{inputs.jfrog-file-url}}
         run: |
            yarn workspaces run semantic-release -e semantic-release-monorepo
 
