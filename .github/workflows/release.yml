@@ -90,7 +90,7 @@ jobs:
           JFROG_FILE_URL: ${{inputs.jfrog-file-url}}
         run: |
            ##yarn workspaces run semantic-release -e semantic-release-monorepo
-           npm run semantic-release -e semantic-release-monorepo
+           pnpm -r --workspace-concurrency=1 exec -- npx --no-install semantic-release -e semantic-release-monorepo
 
       - name: Check NEXT_TAG value
         run: |
