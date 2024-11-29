@@ -20,12 +20,11 @@ plugins: [
             "@semantic-release/exec",
             {
               generateNotesCmd: `
-                echo "PREV_TAG=v${lastRelease.version}" >> $GITHUB_OUTPUT;
-                echo "NEXT_TAG=v${nextRelease.version}" >> $GITHUB_OUTPUT;
-                echo "RELEASE_TYPE=${nextRelease.type}" >> $GITHUB_OUTPUT;
-                if [ "${jFrogFileName}" != "" ]; then
-                  echo "### Artifact Reference" >> release-notes.md;
-                  echo "* JFrog Artifact link ([${jFrogFileName}](${jFrogFileUrl}))" >> release-notes.md;
+                echo "PREV_TAG=1.2" >> $GITHUB_OUTPUT;
+                echo "NEXT_TAG=v1.3" >> $GITHUB_OUTPUT;
+                echo "RELEASE_TYPE=patch >> $GITHUB_OUTPUT;
+                echo "### Artifact Reference" >> release-notes.md;
+                  echo "* JFrog Artifact link ([master.zip](https://jfrog.com))" >> release-notes.md;
                 fi
               `,
             },
