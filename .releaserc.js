@@ -14,7 +14,15 @@ module.exports = {
       {
         generateNotesCmd: `
                echo "### Artifact Reference" >> release-notes.md;
-               echo "* JFrog Artifact link ([${JFROG_FILE_NAME}](${JFROG_FILE_URL}))" >> release-notes.md;
+               echo "* JFrog Artifact link ([${process.env.JFROG_FILE_NAME}](${process.env.JFROG_FILE_URL}))" >> release-notes.md;
+        `,
+      }
+    ]
+  ],
+  extends: "semantic-release-monorepo",
+  tagFormat: `${packageJson.name}-v${"${version}"}`
+};
+
         `,
       }
     ]
