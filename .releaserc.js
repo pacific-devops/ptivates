@@ -9,17 +9,23 @@ module.exports = {
     "@semantic-release/changelog",
     "@semantic-release/github",
     "@semantic-release/git",
-    [
+     [
       "@semantic-release/exec",
-      {
-        generateNotesCmd: `
-            echo "### Artifact Reference" >> release-notes.md;
-            echo "* JFrog Artifact link ([${process.env.JFROG_FILE_NAME}](${process.env.JFROG_FILE_URL}))" >> release-notes.md;
-        `,
-      }
-    ]
+        {
+          generateNotesCmd: `
+              echo "PREV_TAG=v${lastRelease.version}" >> $GITHUB_OUTPUT;
+              echo "NEXT_TAG=v${nextRelease.version}" >> $GITHUB_OUTPUT;
+              echo "RELEASE_TYPE=${nextRelease.type}" >> $GITHUB_OUTPUT;
+              if [ "${jFrogFileName}" != "" ]; then
+                echo "### Artifact Reference" >> release-notes.md;
+                echo "* JFrog Artifact link ([${jFrogFileName}](${jFrogFileUrl}))" >> release-notes.md;
+              fi
+            `,
+          },
+        ]
+
   ],
   extends: "semantic-release-monorepo",  // Use semantic-release-monorepo for monorepo handling
-  // Correct the tag format by referencing packageJson.version instead of version
-  tagFormat: `${packageJson.name}-v${packageJson.version}`,
-};
+  //tagFormat: "v${version}",  // Set format for version tags
+  tagFormat: `${packageJson.name}-v${"${version}"}`
+}
