@@ -80,7 +80,8 @@ jobs:
             @semantic-release/changelog@6.0.3 \
             conventional-changelog-conventionalcommits \
             @semantic-release/npm \
-            semantic-release-monorepo
+            semantic-release-monorepo \
+            pnpm
     
 
       - name: Run Semantic Release
