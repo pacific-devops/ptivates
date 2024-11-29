@@ -18,7 +18,7 @@ const semanticRelease = async () => {
           { name: "main" },
           { name: "feature/*", channel: "dev-feature", prerelease: '${name.replace("feature/", "dev-")}' },
         ],
-        tagFormat: `${packageJson.name}-v${version}`,
+        tagFormat: `${packageJson.name}-v${nextRelease.version}`, // Fixed tag format
         plugins: [
           [
             "@semantic-release/commit-analyzer",
