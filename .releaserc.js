@@ -18,7 +18,7 @@ const semanticRelease = async () => {
           { name: "main" },
           { name: "feature/*", channel: "dev-feature", prerelease: '${name.replace("feature/", "dev-")}' },
         ],
-        tagFormat: `${packageJson.name}-v${nextRelease.version}`, // Fixed tag format
+        tagFormat: `${packageJson.name}-v\${version}`, // Use literal "${version}" for semantic-release to resolve it dynamically
         plugins: [
           [
             "@semantic-release/commit-analyzer",
@@ -35,12 +35,12 @@ const semanticRelease = async () => {
           [
             "@semantic-release/exec",
             {
-              generateNotesCmd: `
-                if [ "${lastRelease.version}" != "" ]; then
-                  echo "PREV_TAG=v${lastRelease.version}" >> $GITHUB_OUTPUT;
+              prepareCmd: `
+                if [ "\${lastRelease.version}" != "" ]; then
+                  echo "PREV_TAG=v\${lastRelease.version}" >> $GITHUB_OUTPUT;
                 fi
-                echo "NEXT_TAG=v${nextRelease.version}" >> $GITHUB_OUTPUT;
-                echo "RELEASE_TYPE=${nextRelease.type}" >> $GITHUB_OUTPUT;
+                echo "NEXT_TAG=v\${nextRelease.version}" >> $GITHUB_OUTPUT;
+                echo "RELEASE_TYPE=\${nextRelease.type}" >> $GITHUB_OUTPUT;
                 if [ "${jFrogFileName}" != "" ]; then
                   echo "### Artifact Reference" >> release-notes.md;
                   echo "* JFrog Artifact link ([${jFrogFileName}](${jFrogFileUrl}))" >> release-notes.md;
