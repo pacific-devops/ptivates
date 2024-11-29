@@ -15,7 +15,6 @@ module.exports = {
         generateNotesCmd: `
             echo "### Artifact Reference" >> release-notes.md;
             echo "* JFrog Artifact link ([${process.env.JFROG_FILE_NAME}](${process.env.JFROG_FILE_URL}))" >> release-notes.md;
-          fi
         `,
       }
     ]
