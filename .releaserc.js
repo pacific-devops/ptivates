@@ -7,7 +7,16 @@ module.exports = {
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
-    "@semantic-release/github",
+    [
+      "@semantic-release/github",
+      {
+        successComment: false, // Disable default success comments
+        assets: [
+          { path: "build/*.zip", label: "Build Artifacts" },
+          { path: "build/*.tar.gz", label: "Source Code" }
+        ],
+      },
+    ],
     "@semantic-release/git",
     [
       "@semantic-release/exec",
@@ -19,11 +28,10 @@ module.exports = {
         publishCmd: `
           echo "Publishing to JFrog...";
           echo "Artifact URL: ${process.env.JFROG_FILE_URL}";
-        `
-      }
-    ]
+        `,
+      },
+    ],
   ],
-  extends: "semantic-release-monorepo", // For monorepo handling
-  tagFormat: `${packageJson.name}-v${"${version}"}` // Custom tag format
+  extends: "semantic-release-monorepo",
+  tagFormat: `${packageJson.name}-v${"${version}"}`,
 };
-
