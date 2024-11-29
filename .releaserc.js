@@ -19,6 +19,7 @@ const semanticRelease = async () => {
           { name: "feature/*", channel: "dev-feature", prerelease: '${name.replace("feature/", "dev-")}' },
         ],
         tagFormat: `${packageJson.name}-v\${version}`, // Use literal "${version}" for semantic-release to resolve it dynamically
+        extends: "semantic-release-monorepo",
         plugins: [
           [
             "@semantic-release/commit-analyzer",
