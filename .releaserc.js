@@ -4,33 +4,22 @@ const packageJson = require(path.resolve(process.cwd(), "package.json"));
 module.exports = {
   branches: ["main"],
   plugins: [
-    [
-      "@semantic-release/commit-analyzer",
-      { preset: "conventionalcommits" },
-    ],
-    [
-      "@semantic-release/release-notes-generator",
-      { preset: "conventionalcommits" },
-    ],
-    [
-      "@semantic-release/changelog",
-      { changelogFile: "CHANGELOG.md" },
-    ],
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    "@semantic-release/github",
+    "@semantic-release/git",
     [
       "@semantic-release/exec",
       {
-        generateNotesCmd: "echo '### Artifact Reference' >> release-notes.md",
-      },
-    ],
-    "@semantic-release/git",
-    [
-      "@semantic-release/github",
-      {
-        successComment: false,
-        failTitle: false,
-      },
-    ],
+        generateNotesCmd: `
+            echo "### Artifact Reference" >> release-notes.md;
+            echo "* JFrog Artifact link ([${process.env.JFROG_FILE_NAME}](${process.env.JFROG_FILE_URL}))" >> release-notes.md;
+        `,
+      }
+    ]
   ],
-  extends: "semantic-release-monorepo", // Use semantic-release-monorepo for monorepo handling
-  tagFormat: `${packageJson.name}`, // Corrected tag format
-};
+  extends: "semantic-release-monorepo",  // Use semantic-release-monorepo for monorepo handling
+  //tagFormat: "v${version}",  // Set format for version tags
+  tagFormat: `${packageJson.name}-v${"${version}"}`
+}
