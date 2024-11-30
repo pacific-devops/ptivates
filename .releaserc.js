@@ -18,6 +18,7 @@ const semanticRelease = async () => {
           {name : "main"},
           { name: "feature/*", channel: "dev-feature", prerelease: '${name.replace("feature/", "dev-")}' },
         ],
+        "extends": "semantic-release-monorepo",
         tagFormat: `${packageJson.name}-v${"${version}"}`,
         plugins: [
           [
