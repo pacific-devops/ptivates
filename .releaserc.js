@@ -15,7 +15,7 @@ const semanticRelease = async () => {
     const result = await release(
       {
         branches: [
-          { name: "main" },
+          "name": "main",
           { name: "feature/*", channel: "dev-feature", prerelease: '${name.replace("feature/", "dev-")}' },
         ],
         tagFormat: `${packageJson.name}-v${"${version}"}`,
