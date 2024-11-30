@@ -79,7 +79,6 @@ jobs:
             @semantic-release/release-notes-generator@12.1.0 \
             @semantic-release/changelog@6.0.3 \
             conventional-changelog-conventionalcommits \
-            @semantic-release/npm \
             semantic-release-monorepo 
     
 
