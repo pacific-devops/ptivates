@@ -36,8 +36,6 @@ const semanticRelease = async () => {
             "@semantic-release/exec",
             {
               generateNotesCmd: `
-                echo "NEXT_TAG=v${nextRelease.version}" >> $GITHUB_OUTPUT;
-                echo "RELEASE_TYPE=${nextRelease.type}" >> $GITHUB_OUTPUT;
                 if [ "${jFrogFileName}" != "" ]; then
                   echo "### Artifact Reference" >> release-notes.md;
                   echo "* JFrog Artifact link ([${jFrogFileName}](${jFrogFileUrl}))" >> release-notes.md;
@@ -61,8 +59,6 @@ const semanticRelease = async () => {
       }
     );
 
-    
-    console.log(`Next release: ${result.nextRelease?.version}`);
   } catch (err) {
     console.error("The automated release failed with %O", err);
     process.exit(1);
