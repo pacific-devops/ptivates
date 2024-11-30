@@ -88,7 +88,7 @@ jobs:
           JFROG_FILE_NAME: ${{inputs.jfrog-file-name}}
           JFROG_FILE_URL: ${{inputs.jfrog-file-url}}
         run: |
-           yarn workspaces run semantic-release -e semantic-release-monorepo
+          npx yarn workspaces run semantic-release -e semantic-release-monorepo
 
       - name: Check NEXT_TAG value
         run: |
