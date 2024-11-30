@@ -69,7 +69,7 @@ jobs:
       - name: Install Semantic Release
         run: |
           npm init -y
-          npm install -g \
+          yarn add -D -W \
             semantic-release@22.0.12 \
             @semantic-release/commit-analyzer@11.1.0 \
             conventional-changelog-conventionalcommits@7.0.2 \
@@ -80,8 +80,7 @@ jobs:
             @semantic-release/changelog@6.0.3 \
             conventional-changelog-conventionalcommits \
             @semantic-release/npm \
-            semantic-release-monorepo \
-            pnpm
+            @qiwi/multi-semantic-release 
     
 
       - name: Run Semantic Release
@@ -91,7 +90,7 @@ jobs:
           JFROG_FILE_URL: ${{inputs.jfrog-file-url}}
         run: |
            ##yarn workspaces run semantic-release -e semantic-release-monorepo
-           pnpm -r --workspace-concurrency=1 exec -- npx --no-install semantic-release -e semantic-release-monorepo
+           npx multi-semantic-release
 
       - name: Check NEXT_TAG value
         run: |
