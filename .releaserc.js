@@ -1,66 +1,38 @@
 const path = require("path");
-const fs = require("fs");
 
-const semanticRelease = async () => {
-  const { default: release } = await import("semantic-release");
-  const packageJson = JSON.parse(
-    fs.readFileSync(path.resolve(process.cwd(), "package.json"), "utf-8")
-  );
+let packageJson;
+try {
+  packageJson = require(path.resolve(process.cwd(), "package.json"));
+} catch (error) {
+  console.error("Error reading package.json:", error);
+  process.exit(1); // Exit with an error code
+}
 
-  const args = process.argv.slice(2);
-  const jFrogFileName = args[0];
-  const jFrogFileUrl = args[1];
-
-  try {
-    const result = await release(
+module.exports = {
+  branches: [
+    { name: "main" },
+    { name: "feature/*", channel: "dev-feature", prerelease: '${name.replace("feature/", "dev-")}' },
+  ],
+  tagFormat: `${packageJson.name}-v${"${version}"}`,
+  plugins: [
+    ["@semantic-release/commit-analyzer", { preset: "conventionalcommits" }],
+    ["@semantic-release/release-notes-generator", { preset: "conventionalcommits" }],
+    ["@semantic-release/changelog", { changelogFile: "CHANGELOG.md" }],
+    [
+      "@semantic-release/exec",
       {
-         "branches": [ "main"],
-        "extends": "semantic-release-monorepo",
-        tagFormat: `${packageJson.name}-v${"${version}"}`,
-        plugins: [
-          [
-            "@semantic-release/commit-analyzer",
-            { preset: "conventionalcommits" },
-          ],
-          [
-            "@semantic-release/release-notes-generator",
-            { preset: "conventionalcommits" },
-          ],
-          [
-            "@semantic-release/changelog",
-            { changelogFile: "CHANGELOG.md" },
-          ],
-          [
-            "@semantic-release/exec",
-            {
-              generateNotesCmd: `
-                if [ "${jFrogFileName}" != "" ]; then
-                  echo "### Artifact Reference" >> release-notes.md;
-                  echo "* JFrog Artifact link ([${jFrogFileName}](${jFrogFileUrl}))" >> release-notes.md;
-                fi
-              `,
-            },
-          ],
-          "@semantic-release/git",
-          [
-            "@semantic-release/github",
-            {
-              successComment: false,
-              failTitle: false,
-            },
-          ],
-        ],
+        generateNotesCmd: `
+          echo "PREV_TAG=v\${lastRelease.version}" >> $GITHUB_OUTPUT;
+          echo "NEXT_TAG=v\${nextRelease.version}" >> $GITHUB_OUTPUT;
+          echo "RELEASE_TYPE=\${nextRelease.type}" >> $GITHUB_OUTPUT;
+          echo \"### Artifact Reference\"; 
+          if [ -n \"${process.env.JFROG_FILE_URL}\" ] && [ -n \"${process.env.JFROG_FILE_NAME}\" ]; then 
+            echo '* JFrog Artifact link ([${process.env.JFROG_FILE_NAME}](${process.env.JFROG_FILE_URL}))'; 
+          fi
+        `,
       },
-      {
-        stdout: process.stdout,
-        stderr: process.stderr,
-      }
-    );
-
-  } catch (err) {
-    console.error("The automated release failed with %O", err);
-    process.exit(1);
-  }
+    ],
+    "@semantic-release/git",
+    ["@semantic-release/github", { successComment: false, failTitle: false }],
+  ],
 };
-
-semanticRelease();
